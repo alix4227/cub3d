@@ -5,7 +5,7 @@ CC			= gcc
 CFLAGS		= -g -Wall -Wextra -Werror
 
 # artifacts
-NAME		= so_long
+NAME		= cub3D
 
 # source files
 SRCS	= get_next_line.c \

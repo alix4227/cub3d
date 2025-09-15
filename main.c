@@ -35,7 +35,7 @@ void	check_arg(int ac, char *file)
 		write(1, "Invalid number of arguments\n", 28);
 		exit (-1);
 	}
-	if (!ft_strstr(file, ".ber"))
+	if (!ft_strstr(file, ".cub"))
 	{
 		write(1, "Invalid File\n", 13);
 		exit (-1);

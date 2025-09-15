@@ -9,7 +9,7 @@
 /*   Updated: 2025/04/08 14:20:05 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long.h"
+#include "cub3d.h"
 #include "mlx.h"
 
 void	render(t_data *game)
@@ -55,15 +55,6 @@ void	initiate(t_data *game)
 	game->img_ptr = NULL;
 	game->mlx = NULL;
 	game->mlx_win = NULL;
-	game->img_stone = NULL;
-	game->img_frodof = NULL;
-	game->img_frodol = NULL;
-	game->img_frodor = NULL;
-	game->img_frodob = NULL;
-	game->img_dooro = NULL;
-	game->img_doorc = NULL;
-	game->img_coll = NULL;
-	game->img_backg = NULL;
 }
 
 void	map_init(t_data *game, char *file)
