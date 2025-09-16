@@ -58,14 +58,14 @@ int	main(int ac, char **av)
 	initiate(game);
 	if (parsing(game) == 0)
 		ft_close1(game);
-	game->mlx = mlx_init();
-	game->height = game->nbr * TILE_SIZE;
-	game->length = len(game) * TILE_SIZE;
-	game->mlx_win = mlx_new_window(game->mlx, game->length,
-			game->height, "So Long");
-	init_image(game);
-	render(game);
-	mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);
-	mlx_hook(game->mlx_win, KEY_EXIT, 1L << 0, &ft_close, game);
-	mlx_loop(game->mlx);
+	// game->mlx = mlx_init();
+	// game->height = game->nbr * TILE_SIZE;
+	// game->length = len(game) * TILE_SIZE;
+	// game->mlx_win = mlx_new_window(game->mlx, game->length,
+	// 		game->height, "Cub3D");
+	// init_image(game);
+	// render(game);
+	// mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);
+	// mlx_hook(game->mlx_win, KEY_EXIT, 1L << 0, &ft_close, game);
+	// mlx_loop(game->mlx);
 }

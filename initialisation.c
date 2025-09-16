@@ -12,34 +12,34 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-void	render(t_data *game)
-{
-	int	x;
-	int	y;
+// void	render(t_data *game)
+// {
+// 	int	x;
+// 	int	y;
 
-	x = 0;
-	y = 0;
-	while (game->pars[y] != NULL)
-	{
-		x = 0;
-		while (game->pars[y][x] != '\r' && game->pars[y][x] != '\0')
-		{
-			if (game->pars[y][x] == '1')
-				game->img_ptr = game->img_stone;
-			else if (game->pars[y][x] == 'P')
-				game->img_ptr = game->img_frodof;
-			else if (game->pars[y][x] == 'L')
-				game->img_ptr = game->img_frodol;
-			choose_image(game, x, y);
-			choose_image_2(game, x, y);
-			choose_image_3(game, x, y);
-			mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_ptr,
-				x * TILE_SIZE, y * TILE_SIZE);
-			x++;
-		}
-		y++;
-	}
-}
+// 	x = 0;
+// 	y = 0;
+// 	while (game->pars[y] != NULL)
+// 	{
+// 		x = 0;
+// 		while (game->pars[y][x] != '\r' && game->pars[y][x] != '\0')
+// 		{
+// 			if (game->pars[y][x] == '1')
+// 				game->img_ptr = game->img_stone;
+// 			else if (game->pars[y][x] == 'P')
+// 				game->img_ptr = game->img_frodof;
+// 			else if (game->pars[y][x] == 'L')
+// 				game->img_ptr = game->img_frodol;
+// 			choose_image(game, x, y);
+// 			choose_image_2(game, x, y);
+// 			choose_image_3(game, x, y);
+// 			mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_ptr,
+// 				x * TILE_SIZE, y * TILE_SIZE);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void	initiate(t_data *game)
 {
@@ -49,10 +49,8 @@ void	initiate(t_data *game)
 	game->j = 0;
 	game->count1 = 0;
 	game->count2 = 0;
-	game->exit = 0;
-	game->collectible = 0;
 	game->player = 0;
-	game->img_ptr = NULL;
+	game->path_error = 0;
 	game->mlx = NULL;
 	game->mlx_win = NULL;
 }

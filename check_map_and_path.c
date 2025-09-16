@@ -43,16 +43,17 @@ int	check_path(t_data *game, int x, int y)
 		x = 0;
 		while (game->pars[y][x])
 		{
-			if (game->pars[y][x] == 'P')
+			if (game->pars[y][x] == 'N' || game->pars[y][x] == 'S' ||
+				game->pars[y][x] == 'E' || game->pars[y][x] == 'W')
 				break ;
 			x++;
 		}
-		if (game->pars[y][x] == 'P')
+		if (game->pars[y][x] == 'N' || game->pars[y][x] == 'S' ||
+				game->pars[y][x] == 'E' || game->pars[y][x] == 'W')
 			break ;
 		y++;
 	}
-	flood_fill(game, x, y);
-	if (check_flood_fill(game) == 0)
+	if (check_flood_fill(game, x , y) == 1)
 		return (0);
 	return (1);
 }

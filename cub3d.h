@@ -10,38 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 21000
 # endif
 
-# ifndef TILE_SIZE
-#  define TILE_SIZE 64
-# endif
+// # ifndef TILE_SIZE
+// #  define TILE_SIZE 64
+// # endif
 
-# define KEY_PRESS 2
-# define KEY_EXIT 17
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_UP 65362
-# define KEY_DOWN 65364
-# define KEY_RIGHT 65363
-# define KEY_LEFT 65361
+// # define KEY_PRESS 2
+// # define KEY_EXIT 17
+// # define KEY_ESC 65307
+// # define KEY_W 119
+// # define KEY_A 97
+// # define KEY_S 115
+// # define KEY_D 100
+// # define KEY_UP 65362
+// # define KEY_DOWN 65364
+// # define KEY_RIGHT 65363
+// # define KEY_LEFT 65361
 
-# define STONE "./images/stone.xpm"
-# define FRODO_F "./images/frodo_face.xpm"
-# define FRODO_L "./images/frodo_left.xpm"
-# define FRODO_R "./images/frodo_right.xpm"
-# define FRODO_B "./images/frodo_back.xpm"
-# define DOOR_C "./images/door_close.xpm"
-# define DOOR_O "./images/door_open.xpm"
-# define COLL "./images/ring.xpm"
-# define BACKG "./images/grass.xpm"
+// # define STONE "./images/stone.xpm"
+// # define FRODO_F "./images/frodo_face.xpm"
+// # define FRODO_L "./images/frodo_left.xpm"
+// # define FRODO_R "./images/frodo_right.xpm"
+// # define FRODO_B "./images/frodo_back.xpm"
+// # define DOOR_C "./images/door_close.xpm"
+// # define DOOR_O "./images/door_open.xpm"
+// # define COLL "./images/ring.xpm"
+// # define BACKG "./images/grass.xpm"
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -54,12 +54,11 @@ typedef struct s_data
 	int		y;
 	int		i;
 	int		j;
+	int		path_error;
 	int		count;
 	int		count1;
 	int		count2;
 	int		player;
-	int		exit;
-	int		collectible;
 	int		nbr;
 	int		map;
 	int		length;
@@ -68,16 +67,6 @@ typedef struct s_data
 	char	**pars_temp;
 	void	*mlx;
 	void	*mlx_win;
-	void	*img_ptr;
-	void	*img_stone;
-	void	*img_frodof;
-	void	*img_frodol;
-	void	*img_frodor;
-	void	*img_frodob;
-	void	*img_dooro;
-	void	*img_doorc;
-	void	*img_coll;
-	void	*img_backg;
 }	t_data;
 
 char	*get_next_line(int fd);
@@ -92,13 +81,11 @@ int		check_walls_3(t_data *game);
 int		check_walls_2(t_data *game);
 int		check_walls_1(t_data *game);
 int		len(t_data *game);
-int		check_rectangle(const char *s1, const char *s2);
-int		check_rectangle_2(t_data *game);
 int		check_items(t_data *game);
 int		check_numbers_items(t_data *game);
 void	check_numbers_items2(t_data *game, int x, int y);
 int		check_doublons(t_data *game);
-int		check_flood_fill(t_data *game);
+int	check_flood_fill(t_data *game, int x, int y);
 void	flood_fill(t_data *game, int x, int y);
 char	**cpy_pars(t_data *game);
 void	ft_free(t_data *game);
@@ -126,4 +113,5 @@ int		ft_close(t_data *game);
 int		ft_close1(t_data *game);
 void	check_arg(int ac, char *file);
 char	*ft_strstr(char *str, char *to_find);
+int		is_whitespace(char c);
 #endif

@@ -12,9 +12,31 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-int is_whitespaces(char c)
+size_t	len2(const char *str)
 {
-	if ( c >= 9 && c <= 13 || c == ' ')
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] != '\n')
+		i++;
+	return (i);
+}
+
+int	len_y(t_data *game, int x)
+{
+	int	y;
+
+	y = 0;
+	while (game->pars[y] && game->pars[y][x] != '\n')
+		y++;
+	return (y);
+}
+
+int is_whitespace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
 	return (0);
 }
@@ -26,12 +48,17 @@ int	check_walls_1(t_data *game)
 
 	x = 0;
 	y = 0;
-	while (is_whitespace(game->pars[y][x]) && game->pars[y][x] != '\n')
-		x++;
-	if (game->pars[y][x] != '1')
+	while (game->pars[y])
 	{
-		write(1, "Error: wrong wall\n", 18);
-		return (0);
+		x = 0;
+		while (is_whitespace(game->pars[y][x]) && game->pars[y][x] != '\n')
+			x++;
+		if (game->pars[y][x] != '1')
+		{
+			write(1, "Error: wrong wall\n", 18);
+			return (0);
+		}
+		y++;
 	}
 	return (1);
 }
@@ -43,12 +70,17 @@ int	check_walls_2(t_data *game)
 
 	x = 0;
 	y = 0;
-	while (is_whitespace(game->pars[y][x]) && game->pars[y] != NULL)
-		y++;
-	if (game->pars[y][x] != '1')
+	while (game->pars[y])
 	{
-		write(1, "Error: wrong wall\n", 18);
-		return (0);
+		x = len2(game->pars[y]) - 1;
+		while (is_whitespace(game->pars[y][x]) && x >= 0)
+			x--;
+		if (game->pars[y][x] != '1')
+		{
+			write(1, "Error: wrong wall\n", 18);
+			return (0);
+		}
+		y++;
 	}
 	return (1);
 }
@@ -58,14 +90,19 @@ int	check_walls_3(t_data *game)
 	int	x;
 	int	y;
 
+	x = 0;
 	y = 0;
-	x = len(game) - 1;
-	while (is_whitespace(game->pars[y][x]) && game->pars[y] != NULL)
-		y++;
-	if (game->pars[y][x] != '1')
+	while (game->pars[y][x] != '\n')
 	{
-		write(1, "Error: wrong wall\n", 18);
-		return (0);
+		y = 0;
+		while (is_whitespace(game->pars[y][x]) && game->pars[y] != NULL)
+			y++;
+		if (game->pars[y][x] != '1')
+		{
+			write(1, "Error: wrong wall\n", 18);
+			return (0);
+		}
+		x++;
 	}
 	return (1);
 }
@@ -75,14 +112,19 @@ int	check_walls_4(t_data *game)
 	int	x;
 	int	y;
 
-	y = game->nbr - 1;
 	x = 0;
-	while (is_whitespace(game->pars[y][x]) && game->pars[y][x] != '\n')
-		x++;
-	if (game->pars[y][x] != '1')
+	y = len_y(game, x) - 1;
+	while (game->pars[y][x] != '\0')
 	{
-		write(1, "Error: wrong wall\n", 18);
-		return (0);
+		y = len_y(game, x) - 1;
+		while (is_whitespace(game->pars[y][x]) && y >= 0)
+			y--;
+		if (game->pars[y][x] != '1')
+		{
+			write(1, "Error: wrong wall\n", 18);
+			return (0);
+		}
+		x++;
 	}
 	return (1);
 }
