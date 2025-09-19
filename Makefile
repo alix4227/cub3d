@@ -17,6 +17,7 @@ SRCS	= get_next_line.c \
 		parsing_utils.c\
 		cleaning.c\
 		flood_fill.c\
+		pars_info.c\
 		main.c 
 
 # object files

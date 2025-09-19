@@ -53,6 +53,12 @@ void	initiate(t_data *game)
 	game->path_error = 0;
 	game->mlx = NULL;
 	game->mlx_win = NULL;
+	game->no = 0;
+	game->so = 0;
+	game->we = 0;
+	game->ea = 0;
+	game->f = 0;
+	game->c = 0;
 }
 
 void	map_init(t_data *game, char *file)
@@ -62,15 +68,21 @@ void	map_init(t_data *game, char *file)
 	int		map;
 
 	map = open(file, O_RDONLY);
-	line = get_next_line(map);
 	i = 0;
+	line = get_next_line(map);
+	while (line != NULL)
+	{
+		if (is_map_line(line))
+			break;
+		free(line);
+		line = get_next_line(map);
+	}
 	while (line != NULL)
 	{
 		game->pars[i] = line;
 		i++;
 		line = get_next_line(map);
 	}
-	free(line);
 	game->pars[i] = NULL;
 	close(map);
 }

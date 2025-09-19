@@ -54,8 +54,13 @@ int	main(int ac, char **av)
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
 		return (0);
-	map_init(game, av[1]);
 	initiate(game);
+	if (!parsing_info(game, av[1]))
+	{
+		printf("error\n");
+		return (0);
+	}
+	map_init(game, av[1]);
 	if (parsing(game) == 0)
 		ft_close1(game);
 	// game->mlx = mlx_init();

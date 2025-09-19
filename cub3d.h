@@ -28,8 +28,8 @@
 // # define KEY_A 97
 // # define KEY_S 115
 // # define KEY_D 100
-// # define KEY_UP 65362
-// # define KEY_DOWN 65364
+// // # define KEY_UP 65362
+// // # define KEY_DOWN 65364
 // # define KEY_RIGHT 65363
 // # define KEY_LEFT 65361
 
@@ -47,6 +47,8 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
+
 
 typedef struct s_data
 {
@@ -54,6 +56,12 @@ typedef struct s_data
 	int		y;
 	int		i;
 	int		j;
+	int		no;
+	int		so;
+	int		we;
+	int		ea;
+	int		f;
+	int		c;
 	int		path_error;
 	int		count;
 	int		count1;
@@ -85,7 +93,7 @@ int		check_items(t_data *game);
 int		check_numbers_items(t_data *game);
 void	check_numbers_items2(t_data *game, int x, int y);
 int		check_doublons(t_data *game);
-int	check_flood_fill(t_data *game, int x, int y);
+int		check_flood_fill(t_data *game, int x, int y);
 void	flood_fill(t_data *game, int x, int y);
 char	**cpy_pars(t_data *game);
 void	ft_free(t_data *game);
@@ -114,4 +122,14 @@ int		ft_close1(t_data *game);
 void	check_arg(int ac, char *file);
 char	*ft_strstr(char *str, char *to_find);
 int		is_whitespace(char c);
+int		parsing_info(t_data *game, char *file);
+int		is_map_line(char *line);
+int		check_doubles(t_data *game);
+int		check_line(t_data *game, char *line);
+void	ft_count_id(t_data *game, char *str);
+int		ft_check_id(const char *s1, const char *s2, size_t n);
+int		ft_check_id_nb(const char *s1, const char *s2, size_t n);
+int		check_numbers(const char *str);
+int		check_char(char *str);
+int		check_range(int *nb);
 #endif
