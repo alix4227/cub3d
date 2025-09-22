@@ -63,6 +63,7 @@ int	main(int ac, char **av)
 	map_init(game, av[1]);
 	if (parsing(game) == 0)
 		ft_close1(game);
+	renderFrame();
 	// game->mlx = mlx_init();
 	// game->height = game->nbr * TILE_SIZE;
 	// game->length = len(game) * TILE_SIZE;
