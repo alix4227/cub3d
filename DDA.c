@@ -64,70 +64,52 @@ double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
  * Et sideDistX = 0.7 * deltaDistX
  */
 
-// // ========== ÉTAPE 4: BOUCLE DDA ==========
 
-// int hit = 0;    
-// int side;
-
-// while (hit == 0) {
-// 	if (sideDistX < sideDistY) 
-// 	{
-// 		sideDistX += deltaDistX;
-// 		mapX += stepX;
-// 		side = 0;
-// 	}
-// 	else
-// 	{
-// 		sideDistY += deltaDistY;
-// 		mapY += stepY;
-// 		side = 1;
-// 	}
-// 	if (worldMap[mapX][mapY] > 0) 
-// 		hit = 1;
-// }
-
-// ========== ÉTAPE 5: CALCUL DE LA DISTANCE FINALE ==========
-
-
-void drawColumn(int x, int lineHeight) 
+void drawColumn(int x, int lineHeight, t_data *game) 
 {
 	int y;
 	int drawStart;
 	int drawEnd;
 	
-	drawStart = -lineHeight / 2 + screenHeight / 2;
+	drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
+	y = 0;
 	if (drawStart < 0)
 		drawStart = 0;
-	drawEnd = lineHeight / 2 + screenHeight / 2;
-	if (drawEnd >= screenHeight) 
-		drawEnd = screenHeight - 1;
+	drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
+	if (drawEnd >= SCREEN_HEIGHT) 
+		drawEnd = SCREEN_HEIGHT - 1;
     // Dessiner le PLAFOND (du haut jusqu'au mur)
-    while (y = 0; y < drawStart; y++)
+	while (y < drawStart)
 	{
-        putPixel(x, y, CEILING_COLOR);
-    }
+		putPixel(x, y, game->color_c, game);
+		y++;
+	}
     // Dessiner le MUR
-    while (y = drawStart; y < drawEnd; y++) {
+	y = drawStart;
+	while (y < drawEnd) 
+	{
 		// Dessiner un pixel du mur à la position (x, y)
     // La couleur dépend du type de mur (worldMap[mapX][mapY])
     // et du côté touché (side) pour les ombres
-        int color = getWallColor(worldMap[mapX][mapY], side);
-		putPixel(x, y, WALL_COLOR);
-    }
+		// int color = getWallColor(worldMap[mapX][mapY], side);
+		putPixel(x, y, choose_color(game, y), game);
+		y++;
+	}
     // Dessiner le SOL (du mur jusqu'au bas)
-    while (y = drawEnd; y < SCREEN_HEIGHT; y++) {
-        putPixel(x, y, FLOOR_COLOR);
-    }
+	y = drawEnd;
+	while (y < SCREEN_HEIGHT) 
+	{
+		putPixel(x, y, game->color_f, game);
+		y++;
+	}
 }
 
-void	get_position_and_distance(t_player player, double rayDirX, double rayDirY)
+void	get_position_and_distance(t_ray player, double rayDirX, double rayDirY)
 {
 	player.deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
 	player.deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 	player.mapX = player.(int)posX;
 	player.mapY = player.(int)posY;
-
-	double sideDistX, sideDistY;
 	if (rayDirX < 0) 
 	{
 		player.stepX = -1;
@@ -150,7 +132,7 @@ void	get_position_and_distance(t_player player, double rayDirX, double rayDirY)
 	}
 }
 
-void	performDDA(double rayDirX, double rayDirY)
+void	performDDA(double rayDirX, double rayDirY, t_ray player)
 {
 	int hit;
 	int side;
@@ -174,8 +156,6 @@ void	performDDA(double rayDirX, double rayDirY)
 		if (game->pars[player.mapX][player.mapY] > 0)
 			hit = 1;
 	}
-	double player.perpWallDist;
-
 	if (side == 0) 
 		player.perpWallDist = (player.mapX - player.posX + (1 - player.stepX) / 2) / rayDirX;
 	else 
@@ -183,7 +163,7 @@ void	performDDA(double rayDirX, double rayDirY)
 
 }
 
-void renderFrame()
+void renderFrame(t_data *game, t_ray player)
 {
 	int x;
 	double cameraX;
@@ -197,9 +177,9 @@ void renderFrame()
 		cameraX = 2 * x / (double)SCREEN_WIDTH - 1;
 		rayDirX = dirX + planeX * cameraX;
 		rayDirY = dirY + planeY * cameraX;
-		performDDA(rayDirX, rayDirY);
+		performDDA(rayDirX, rayDirY, t_ray player);
 		lineHeight = (int)(SCREEN_HEIGHT / player.perpWallDist);
-		drawColumn(x, lineHeight);
+		drawColumn(x, lineHeight, game);
 		x++;
 	}
 }

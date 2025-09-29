@@ -59,6 +59,9 @@ void	initiate(t_data *game)
 	game->ea = 0;
 	game->f = 0;
 	game->c = 0;
+	game->bits_per_pixel = 0;
+	game->line_length = 0;
+	game->endian = 0;
 }
 
 void	map_init(t_data *game, char *file)

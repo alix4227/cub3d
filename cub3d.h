@@ -43,12 +43,13 @@
 // # define COLL "./images/ring.xpm"
 // # define BACKG "./images/grass.xpm"
 
+# define ROTATION_SPEED 0.05
+
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-
 
 typedef struct s_data
 {
@@ -75,7 +76,45 @@ typedef struct s_data
 	char	**pars_temp;
 	void	*mlx;
 	void	*mlx_win;
+	char	*addr;
+	void	*img;
+	char	*texture;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		color_c;
+	int		color_f;
+	int		side;
 }	t_data;
+
+typedef struct	s_ray
+{
+	double		posX;
+	double		posY;
+	double		dirX; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
+	double		dirY; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
+	double		planX; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
+	double		planY; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
+	double		rayDirX;
+	double		rayDirY;
+	double		cameraX;
+	int			mapX;
+	int			mapY;
+	double		sideDistX;
+	double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+	int			stepX;
+	int			stepY;
+	int			hit;
+	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
+	double		perpWallDist;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
+	int			x;
+}	t_ray;
+
 
 char	*get_next_line(int fd);
 int		parsing(t_data *game);
@@ -132,4 +171,6 @@ int		ft_check_id_nb(const char *s1, const char *s2, size_t n);
 int		check_numbers(const char *str);
 int		check_char(char *str);
 int		check_range(int *nb);
+void	rotate_left(t_data *game);
+void	rotate_right(t_data *game);
 #endif

@@ -45,7 +45,7 @@ void	check_arg(int ac, char *file)
 int	main(int ac, char **av)
 {
 	t_data	*game;
-
+	t_ray player;
 	check_arg(ac, av[1]);
 	game = malloc(sizeof(t_data));
 	if (!game)
@@ -60,10 +60,11 @@ int	main(int ac, char **av)
 		printf("error\n");
 		return (0);
 	}
+	ft_color(game, av[1]);
 	map_init(game, av[1]);
 	if (parsing(game) == 0)
 		ft_close1(game);
-	renderFrame();
+	renderFrame(game, player);
 	// game->mlx = mlx_init();
 	// game->height = game->nbr * TILE_SIZE;
 	// game->length = len(game) * TILE_SIZE;

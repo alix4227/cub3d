@@ -8,7 +8,7 @@ int check_range(int *nb)
 	i = 0;
 	if (!nb)
 		return (0);
-	while ( i < 3)
+	while (i < 3)
 	{
 		if (nb[i] < 0 || nb[i] > 255)
 			return (0);
