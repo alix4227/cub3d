@@ -16,34 +16,34 @@ void	rotate_left(t_ray *player)
 {
 	double	old_dirX;
 	double	old_dirY;
-	double	old_planX;
-	double	old_planY;
+	double	old_planeX;
+	double	old_planeY;
 
 	old_dirX = player->dirX;
 	old_dirY = player->dirY;
-	old_planX = player->planX;
-	old_planY = player->planY;
+	old_planeX = player->planeX;
+	old_planeY = player->planeY;
 	player->dirX = old_dirX * cos(-ROTATION_SPEED) - old_dirY * sin(-ROTATION_SPEED);
 	player->dirY = old_dirX * sin(-ROTATION_SPEED) + old_dirY * cos(-ROTATION_SPEED);
-	player->planX = old_planX * cos(-ROTATION_SPEED) - old_planY * sin(-ROTATION_SPEED);
-	player->planY = old_planX * sin(-ROTATION_SPEED) + old_planY * cos(-ROTATION_SPEED);
+	player->planeX = old_planeX * cos(-ROTATION_SPEED) - old_planeY * sin(-ROTATION_SPEED);
+	player->planeY = old_planeX * sin(-ROTATION_SPEED) + old_planeY * cos(-ROTATION_SPEED);
 }
 
 void	rotate_right(t_ray *player)
 {
 	double	old_dirX;
 	double	old_dirY;
-	double	old_planX;
-	double	old_planY;
+	double	old_planeX;
+	double	old_planeY;
 
 	old_dirX = player->dirX;
 	old_dirY = player->dirY;
-	old_planX = player->planX;
-	old_planY = player->planY;
+	old_planeX = player->planeX;
+	old_planeY = player->planeY;
 	player->dirX = old_dirX * cos(ROTATION_SPEED) - old_dirY * sin(ROTATION_SPEED);
 	player->dirY = old_dirX * sin(ROTATION_SPEED) + old_dirY * cos(ROTATION_SPEED);
-	player->planX = old_planX * cos(ROTATION_SPEED) - old_planY * sin(ROTATION_SPEED);
-	player->planY = old_planX * sin(ROTATION_SPEED) + old_planY * cos(ROTATION_SPEED);
+	player->planeX = old_planeX * cos(ROTATION_SPEED) - old_planeY * sin(ROTATION_SPEED);
+	player->planeY = old_planeX * sin(ROTATION_SPEED) + old_planeY * cos(ROTATION_SPEED);
 }
 
 // void	move_up(t_data *game)

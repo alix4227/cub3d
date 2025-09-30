@@ -47,18 +47,18 @@ void	ft_free_pars(t_data *game)
 	free(game->pars);
 }
 
-// int	ft_close(t_data *game)
-// {
-// 	ft_mlx_destroy_image(game);
-// 	mlx_clear_window(game->mlx, game->mlx_win);
-// 	mlx_destroy_window(game->mlx, game->mlx_win);
-// 	mlx_destroy_display(game->mlx);
-// 	mlx_loop_end(game->mlx);
-// 	free(game->mlx);
-// 	ft_free_pars(game);
-// 	free(game);
-// 	exit (0);
-// }
+int	ft_close(t_data *game)
+{
+	// ft_mlx_destroy_image(game);
+	mlx_clear_window(game->mlx, game->mlx_win);
+	mlx_destroy_window(game->mlx, game->mlx_win);
+	mlx_destroy_display(game->mlx);
+	mlx_loop_end(game->mlx);
+	free(game->mlx);
+	ft_free_pars(game);
+	free(game);
+	exit (0);
+}
 
 int	ft_close1(t_data *game)
 {

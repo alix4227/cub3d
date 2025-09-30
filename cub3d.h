@@ -21,6 +21,9 @@
 #  define TILE_SIZE 64
 # endif
 
+# define SCREEN_WIDTH 1024
+# define SCREEN_HEIGHT 640
+
 # define KEY_PRESS 2
 # define KEY_EXIT 17
 # define KEY_ESC 65307
@@ -205,7 +208,7 @@ void	initiate_mlx(t_data *game);
 int		get_color(const char *str);
 int		ft_check_id2(const char *s1, const char *s2, size_t n);
 int		find_line(t_data *game, char *line);
-void	ft_color(t_data *game);
+void	ft_color(t_data *game, char *file);
 void	putPixel(int x, int y, int color, t_data *game);
 unsigned int	choose_color(t_data *game, double y, t_ray *player);
 unsigned int	get_texture(t_data *game);
@@ -215,4 +218,6 @@ void	get_vert_texture_color(t_data *game, double top_pxl, t_ray *player);
 void	get_image(t_data *game);
 int		init_image(t_data *game);
 int		init_addr(t_data *game);
+void	performDDA(double rayDirX, double rayDirY, t_ray *player, t_data *game);
+void	renderFrame(t_data *game, t_ray *player);
 #endif

@@ -36,7 +36,6 @@ void	check_position(t_data *game)
 
 int	key_hook(int keycode, t_data *game, t_ray *player)
 {
-	(void)game;
 	// check_position(game);
 	if (keycode == KEY_LEFT)
 		rotate_left(player);
@@ -46,8 +45,8 @@ int	key_hook(int keycode, t_data *game, t_ray *player)
 	// 	move_up(game, player);
 	// if (keycode == KEY_S)
 	// 	move_down(game, player);
-	// if (keycode == KEY_ESC)
-	// 	ft_close(game);
+	if (keycode == KEY_ESC)
+		ft_close(game);
 	// render(game);
 	return (0);
 }

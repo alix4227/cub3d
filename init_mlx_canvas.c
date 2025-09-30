@@ -5,19 +5,19 @@ void	initiate_mlx(t_data *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		return (0);
+		return ;
 	game->height = game->nbr * TILE_SIZE;
 	game->length = len(game) * TILE_SIZE;
 	game->mlx_win = mlx_new_window(game->mlx, game->length,
 			game->height, "Cub3D");
 	if (!game->mlx_win)
-		return (0)
+		return ;
 	game->img = mlx_new_image(game->mlx, game->length, game->height);
 	game->addr = mlx_get_data_addr(game->img,
 			&game->bits_per_pixel,
 			&game->line_length, &game->endian);
 	if (!init_image(game))
-		return (0);
+		return ;
 }
 
 int	get_color(const char *str)
@@ -27,6 +27,10 @@ int	get_color(const char *str)
 	int		j;
 	int		i;
 	int		k;
+	int		b;
+	int		g;
+	int		r;
+	int		res;
 
 	i = 0;
 	k = 0;
@@ -90,7 +94,7 @@ int	find_line(t_data *game, char *line)
 	return (0);
 }
 
-void	ft_color(t_data *game)
+void	ft_color(t_data *game, char *file)
 {
 	char	*line;
 	int		map;
@@ -101,7 +105,7 @@ void	ft_color(t_data *game)
 	{
 		if (is_map_line(line))
 			break;
-		find_line(game, line)
+		find_line(game, line);
 		line = get_next_line(map);
 	}
 	free(line);

@@ -73,7 +73,7 @@ void drawColumn(int x, t_data *game, t_ray *player)
 	int drawStart;
 	int drawEnd;
 	
-	drawStart = game->(-lineHeight) / 2 + SCREEN_HEIGHT / 2;
+	drawStart = -game->lineHeight / 2 + SCREEN_HEIGHT / 2;
 	y = 0;
 	if (drawStart < 0)
 		drawStart = 0;
@@ -110,8 +110,8 @@ void	get_position_and_distance(t_ray *player, double rayDirX, double rayDirY)
 {
 	player->deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
 	player->deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-	player->mapX = player->(int)posX;
-	player->mapY = player->(int)posY;
+	player->mapX = (int)player->posX;
+	player->mapY = (int)player->posY;
 	if (rayDirX < 0) 
 	{
 		player->stepX = -1;
@@ -134,7 +134,7 @@ void	get_position_and_distance(t_ray *player, double rayDirX, double rayDirY)
 	}
 }
 
-void	performDDA(double rayDirX, double rayDirY, t_ray *player)
+void	performDDA(double rayDirX, double rayDirY, t_ray *player, t_data *game)
 {
 	int hit;
 	int side;
@@ -155,7 +155,7 @@ void	performDDA(double rayDirX, double rayDirY, t_ray *player)
 			player->mapY += player->stepY;
 			side = 1;
 		}
-		if (game->pars[player->mapY][player->mapX] > 0)
+		if (game->pars[player->mapY][player->mapX] != '0')
 			hit = 1;
 	}
 	if (side == 0) 
@@ -165,7 +165,7 @@ void	performDDA(double rayDirX, double rayDirY, t_ray *player)
 
 }
 
-void renderFrame(t_data *game, t_ray *player)
+void	renderFrame(t_data *game, t_ray *player)
 {
 	int x;
 	double cameraX;
@@ -178,7 +178,9 @@ void renderFrame(t_data *game, t_ray *player)
 		cameraX = 2 * x / (double)SCREEN_WIDTH - 1;
 		rayDirX = player->dirX + player->planeX * cameraX;
 		rayDirY = player->dirY + player->planeY * cameraX;
-		performDDA(rayDirX, rayDirY, player);
+		performDDA(rayDirX, rayDirY, player, game);
+		// if (player->perpWallDist < 0.0001)
+    	// 	player->perpWallDist = 0.0001;
 		game->lineHeight = (int)(SCREEN_HEIGHT / player->perpWallDist);
 		drawColumn(x, game, player);
 		x++;
