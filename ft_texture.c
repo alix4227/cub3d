@@ -6,39 +6,31 @@
 /*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:50:07 by parracha          #+#    #+#             */
-/*   Updated: 2025/09/29 19:34:02 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:16:14 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
 
-void	get_wall_text(t_player *p, int col)
+void	get_wall_texture(t_data *game, t_ray *player)
 {
-	if (p->r[col].is_hor_hit && p->r[col].is_ray_up && (p->r[col].is_ray_left
-			|| p->r[col].is_ray_right))
-	{
-		p->r[col].text = p->cub->so_text;
-		p->r[col].text->wall_hit_text = 'S';
-	}
-	else if (p->r[col].is_hor_hit && p->r[col].is_ray_down
-		&& (p->r[col].is_ray_left || p->r[col].is_ray_right))
-	{
-		p->r[col].text = p->cub->no_text;
-		p->r[col].text->wall_hit_text = 'N';
-	}
-	if (p->r[col].is_vert_hit && p->r[col].is_ray_left && (p->r[col].is_ray_up
-			|| p->r[col].is_ray_down))
-	{
-		p->r[col].text = p->cub->ea_text;
-		p->r[col].text->wall_hit_text = 'E';
-	}
-	else if (p->r[col].is_vert_hit && p->r[col].is_ray_right
-		&& (p->r[col].is_ray_up || p->r[col].is_ray_down))
-	{
-		p->r[col].text = p->cub->we_text;
-		p->r[col].text->wall_hit_text = 'W';
-	}
+    // Mur HORIZONTAL (side == 1)
+    if (game->side == 1)
+    {
+        if (player->stepY == -1)  // Rayon va vers le HAUT → mur SUD
+            game->texture = game->so_text;  // ou game->so_text
+        else  // stepY == 1, Rayon va vers le BAS → mur NORD
+            game->texture = game->no_text;  // ou game->no_text
+    }
+    // Mur VERTICAL (side == 0)
+    else
+    {
+        if (player->stepX == -1)  // Rayon va vers la GAUCHE → mur EST
+            game->texture = game->ea_text;   // ou game->ea_text
+        else  // stepX == 1, Rayon va vers la DROITE → mur OUEST
+            game->texture = game->we_text;   // ou game->we_text
+    }
 }
 
 unsigned int	get_texture(t_data *game)
@@ -51,50 +43,47 @@ unsigned int	get_texture(t_data *game)
 
 	tex_i = game->texture->offset_y * game->texture->line_length + game->texture->offset_x
 			* (game->texture->bits_per_pixel / 8);
-	r = (unsigned char)(game->texture)[tex_i + 2];
-	g = (unsigned char)(game->texture)[tex_i + 1];
-	b = (unsigned char)(game->texture)[tex_i];
+	r = (unsigned char)(game->texture->addr)[tex_i + 2];
+	g = (unsigned char)(game->texture->addr)[tex_i + 1];
+	b = (unsigned char)(game->texture->addr)[tex_i];
 	res = ((int)r << 16) + ((int)g << 8) + (int)b;
 	return (res);
 }
 
-unsigned int	choose_color(t_data *game, double y)
+unsigned int	choose_color(t_data *game, double y, t_ray *player)
 {
 	unsigned int	color;
-
-	if (r->is_hor_hit)
-		get_hor_texture_color(r, y);
-	else if (r->is_vert_hit)
-		get_vert_texture_color(r, y);
+	get_wall_texture(game, player);
+	if (game->side == 1)
+		get_hor_texture_color(game, y, player);
+	else if (game->side == 0)
+		get_vert_texture_color(game, y, player);
 	color = get_texture(game);
 	return (color);
 }
 
-void	get_hor_texture_color(t_ray *r, double y)
+void	get_hor_texture_color(t_data *game, double y, t_ray *player)
 {
-	game->texture->offset_y = (y * game->texture->icon_h) / floor(r->wall_height);
+	game->texture->offset_y = (y * game->texture->icon_h) / floor(game->lineHeight);
 	if (game->texture->offset_y > game->texture->icon_h)
 		game->texture->offset_y = game->texture->icon_h - 1;
-	game->texture->offset_x = r->end.x % TILES_S;
-	if (r->is_ray_down)
+	game->texture->offset_x = player->mapX % TILES_S;
+	if (player->stepY == 1)
 		game->texture->offset_x = TILES_S - game->texture->offset_x;
 	game->texture->offset_x = (game->texture->offset_x * game->texture->icon_w) / TILES_S;
 	if (game->texture->offset_x > game->texture->icon_w)
 		game->texture->offset_x = game->texture->icon_w;
 }
 
-void	get_vert_texture_color(t_ray *r, double top_pxl)
+void	get_vert_texture_color(t_data *game, double top_pxl, t_ray *player)
 {
-	t_image	*tex;
-
-	tex = r->text;
-	tex->offset_y = (top_pxl * tex->icon_h) / floor(r->wall_height);
-	if (tex->offset_y >= tex->icon_w)
-		tex->offset_y = tex->icon_w - 1;
-	tex->offset_x = r->end.y % TILES_S;
-	if (r->is_ray_left)
-		tex->offset_x = TILES_S - tex->offset_x;
-	tex->offset_x = (tex->offset_x * tex->icon_h) / TILES_S;
-	if (tex->offset_x > tex->icon_w)
-		tex->offset_x = tex->icon_w;
+	game->texture->offset_y = (top_pxl * game->texture->icon_h) / floor(game->lineHeight);
+	if (game->texture->offset_y >= game->texture->icon_h)
+		game->texture->offset_y = game->texture->icon_h - 1;
+	game->texture->offset_x = player->mapY % TILES_S;
+	if (player->stepX == 1)
+		game->texture->offset_x = TILES_S - game->texture->offset_x;
+	game->texture->offset_x = (game->texture->offset_x * game->texture->icon_w) / TILES_S;
+	if (game->texture->offset_x >= game->texture->icon_w)
+		game->texture->offset_x = game->texture->icon_w - 1;
 }

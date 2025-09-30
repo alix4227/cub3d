@@ -18,6 +18,13 @@ SRCS	= get_next_line.c \
 		cleaning.c\
 		flood_fill.c\
 		pars_info.c\
+		animations.c\
+		animations2.c\
+		DDA.c\
+		ft_render.c\
+		ft_texture.c\
+		init_mlx_canvas.c\
+		init_player.c\
 		main.c 
 
 # object files

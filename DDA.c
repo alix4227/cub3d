@@ -1,33 +1,35 @@
-// ========== ÉTAPE 1: INITIALISATION DES DIRECTIONS ==========
+#include "cub3d.h"
+#include "mlx.h"
+// // ========== ÉTAPE 1: INITIALISATION DES DIRECTIONS ==========
 
-// Position du joueur (coordonnées réelles, pas de grille)
-double posX = player.x; 
-double posY = player.y;  
+// // Position du joueur (coordonnées réelles, pas de grille)
+// double posX = player->x; 
+// double posY = player->y;  
 
-// Direction de la caméra (vecteur directeur)
-double dirX = player.dirX;
-double dirY = player.dirY;
+// // Direction de la caméra (vecteur directeur)
+// double dirX = player->dirX;
+// double dirY = player->dirY;
 
-// Plan de la caméra (perpendiculaire à la direction, pour le FOV)
-double planeX = player.planeX;
-double planeY = player.planeY; 
+// // Plan de la caméra (perpendiculaire à la direction, pour le FOV)
+// double planeX = player->planeX;
+// double planeY = player->planeY; 
 
-// Pour chaque colonne x de l'écran (de 0 à screenWidth-1)
-int x = ;
+// // Pour chaque colonne x de l'écran (de 0 à screenWidth-1)
+// int x = ;
 
-// Coordonnée x dans l'espace caméra (de -1 à +1)
-double cameraX = 2 * x / (double)screenWidth - 1;
+// // Coordonnée x dans l'espace caméra (de -1 à +1)
+// double cameraX = 2 * x / (double)screenWidth - 1;
 
-// Direction du rayon pour cette colonne
-double rayDirX = dirX + planeX * cameraX;
-double rayDirY = dirY + planeY * cameraX;
+// // Direction du rayon pour cette colonne
+// double rayDirX = dirX + planeX * cameraX;
+// double rayDirY = dirY + planeY * cameraX;
 
-// ========== ÉTAPE 2: CALCUL DES DELTA DISTANCES ==========
+// // ========== ÉTAPE 2: CALCUL DES DELTA DISTANCES ==========
 
-// Distance que le rayon doit parcourir pour traverser 1 case entière
-// Si rayDirX = 0, on met une valeur très grande (1e30)
-double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+// // Distance que le rayon doit parcourir pour traverser 1 case entière
+// // Si rayDirX = 0, on met une valeur très grande (1e30)
+// double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+// double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 
 // // ========== ÉTAPE 3: CALCUL DES PREMIÈRES SIDE DISTANCES ET STEPS ==========
 
@@ -65,17 +67,17 @@ double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
  */
 
 
-void drawColumn(int x, int lineHeight, t_data *game) 
+void drawColumn(int x, t_data *game, t_ray *player) 
 {
 	int y;
 	int drawStart;
 	int drawEnd;
 	
-	drawStart = -lineHeight / 2 + SCREEN_HEIGHT / 2;
+	drawStart = game->(-lineHeight) / 2 + SCREEN_HEIGHT / 2;
 	y = 0;
 	if (drawStart < 0)
 		drawStart = 0;
-	drawEnd = lineHeight / 2 + SCREEN_HEIGHT / 2;
+	drawEnd = game->lineHeight / 2 + SCREEN_HEIGHT / 2;
 	if (drawEnd >= SCREEN_HEIGHT) 
 		drawEnd = SCREEN_HEIGHT - 1;
     // Dessiner le PLAFOND (du haut jusqu'au mur)
@@ -92,7 +94,7 @@ void drawColumn(int x, int lineHeight, t_data *game)
     // La couleur dépend du type de mur (worldMap[mapX][mapY])
     // et du côté touché (side) pour les ombres
 		// int color = getWallColor(worldMap[mapX][mapY], side);
-		putPixel(x, y, choose_color(game, y), game);
+		putPixel(x, y, choose_color(game, y, player), game);
 		y++;
 	}
     // Dessiner le SOL (du mur jusqu'au bas)
@@ -104,35 +106,35 @@ void drawColumn(int x, int lineHeight, t_data *game)
 	}
 }
 
-void	get_position_and_distance(t_ray player, double rayDirX, double rayDirY)
+void	get_position_and_distance(t_ray *player, double rayDirX, double rayDirY)
 {
-	player.deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-	player.deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-	player.mapX = player.(int)posX;
-	player.mapY = player.(int)posY;
+	player->deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+	player->deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
+	player->mapX = player->(int)posX;
+	player->mapY = player->(int)posY;
 	if (rayDirX < 0) 
 	{
-		player.stepX = -1;
-		player.sideDistX = (player.posX - player.mapX) * player.deltaDistX;
+		player->stepX = -1;
+		player->sideDistX = (player->posX - player->mapX) * player->deltaDistX;
 	} 
 	else
 	{
-		player.stepX = 1;
-		player.sideDistX = (player.mapX + 1.0 - player.posX) * player.deltaDistX;
+		player->stepX = 1;
+		player->sideDistX = (player->mapX + 1.0 - player->posX) * player->deltaDistX;
 	}
 	if (rayDirY < 0)
 	{
-		player.stepY = -1;
-		player.sideDistY = (player.posY - player.mapY) * player.deltaDistY;
+		player->stepY = -1;
+		player->sideDistY = (player->posY - player->mapY) * player->deltaDistY;
 	} 
 	else
 	{
-		player.stepY = 1;
-		player.sideDistY = (player.mapY + 1.0 - player.posY) * player.deltaDistY;
+		player->stepY = 1;
+		player->sideDistY = (player->mapY + 1.0 - player->posY) * player->deltaDistY;
 	}
 }
 
-void	performDDA(double rayDirX, double rayDirY, t_ray player)
+void	performDDA(double rayDirX, double rayDirY, t_ray *player)
 {
 	int hit;
 	int side;
@@ -141,45 +143,45 @@ void	performDDA(double rayDirX, double rayDirY, t_ray player)
 	get_position_and_distance(player, rayDirX, rayDirY);
 	while (hit == 0) 
 	{
-		if (player.sideDistX < player.sideDistY) 
+		if (player->sideDistX < player->sideDistY) 
 		{
-			player.sideDistX += player.deltaDistX;
-			player.mapX += player.stepX;
+			player->sideDistX += player->deltaDistX;
+			player->mapX += player->stepX;
 			side = 0;
 		}
 		else
 		{
-			player.sideDistY += player.deltaDistY;
-			player.mapY += player.stepY;
+			player->sideDistY += player->deltaDistY;
+			player->mapY += player->stepY;
 			side = 1;
 		}
-		if (game->pars[player.mapX][player.mapY] > 0)
+		if (game->pars[player->mapY][player->mapX] > 0)
 			hit = 1;
 	}
 	if (side == 0) 
-		player.perpWallDist = (player.mapX - player.posX + (1 - player.stepX) / 2) / rayDirX;
+		player->perpWallDist = (player->mapX - player->posX + (1 - player->stepX) / 2) / rayDirX;
 	else 
-		player.perpWallDist = (player.mapY - player.posY + (1 - player.stepY) / 2) / rayDirY;
+		player->perpWallDist = (player->mapY - player->posY + (1 - player->stepY) / 2) / rayDirY;
 
 }
 
-void renderFrame(t_data *game, t_ray player)
+void renderFrame(t_data *game, t_ray *player)
 {
 	int x;
 	double cameraX;
 	double rayDirX;
 	double rayDirY;
-	int lineHeight;
 
 	x = 0;
 	while (x < SCREEN_WIDTH) 
 	{
 		cameraX = 2 * x / (double)SCREEN_WIDTH - 1;
-		rayDirX = dirX + planeX * cameraX;
-		rayDirY = dirY + planeY * cameraX;
-		performDDA(rayDirX, rayDirY, t_ray player);
-		lineHeight = (int)(SCREEN_HEIGHT / player.perpWallDist);
-		drawColumn(x, lineHeight, game);
+		rayDirX = player->dirX + player->planeX * cameraX;
+		rayDirY = player->dirY + player->planeY * cameraX;
+		performDDA(rayDirX, rayDirY, player);
+		game->lineHeight = (int)(SCREEN_HEIGHT / player->perpWallDist);
+		drawColumn(x, game, player);
 		x++;
 	}
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img, 0, 0);
 }

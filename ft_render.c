@@ -6,7 +6,7 @@
 /*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:01:51 by blefebvr          #+#    #+#             */
-/*   Updated: 2025/09/29 18:42:53 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/09/30 10:00:44 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,31 @@ void	putPixel(int x, int y, int color, t_data *game)
 // 	}
 // }
 
-void	draw_strips(t_player *p, int x, double top_pxl)
-{
-	double	y;
-	int		next;
-	double	tmp_top_pxl;
+// void	draw_strips(t_player *p, int x, double top_pxl)
+// {
+// 	double	y;
+// 	int		next;
+// 	double	tmp_top_pxl;
 
-	y = 0;
-	next = x + WALL_STRIP_L;
-	tmp_top_pxl = top_pxl;
-	while (x < next)
-	{
-		y = 0;
-		while (top_pxl < 0)
-		{
-			top_pxl = tmp_top_pxl + y++;
-		}
-		while (top_pxl < WIN_H)
-		{
-			my_mlx_pixel_put(p->cub->image, x, top_pxl,
-				choose_color(&p->r[x], y));
-			y += 1;
-			top_pxl = tmp_top_pxl + y;
-			if (y > p->r[x].wall_height)
-				break ;
-		}
-		x++;
-	}
-}
+// 	y = 0;
+// 	next = x + WALL_STRIP_L;
+// 	tmp_top_pxl = top_pxl;
+// 	while (x < next)
+// 	{
+// 		y = 0;
+// 		while (top_pxl < 0)
+// 		{
+// 			top_pxl = tmp_top_pxl + y++;
+// 		}
+// 		while (top_pxl < WIN_H)
+// 		{
+// 			my_mlx_pixel_put(p->cub->image, x, top_pxl,
+// 				choose_color(&p->r[x], y));
+// 			y += 1;
+// 			top_pxl = tmp_top_pxl + y;
+// 			if (y > p->r[x].wall_height)
+// 				break ;
+// 		}
+// 		x++;
+// 	}
+// }

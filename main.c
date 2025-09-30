@@ -45,34 +45,32 @@ void	check_arg(int ac, char *file)
 int	main(int ac, char **av)
 {
 	t_data	*game;
-	t_ray player;
+	t_ray *player;
 	check_arg(ac, av[1]);
 	game = malloc(sizeof(t_data));
 	if (!game)
+		return (0);
+	player = malloc(sizeof(t_ray));
+	if (!player)
 		return (0);
 	game->nbr = number_of_lines(av[1]);
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
 		return (0);
-	initiate(game);
-	if (!parsing_info(game, av[1]))
+	initiate(game);//j'initialise mes variables
+	if (!parsing_info(game, av[1]))//je verifie que dans le fichier .cub les informations au dessus de la map sont correctes
 	{
 		printf("error\n");
 		return (0);
 	}
-	ft_color(game, av[1]);
-	map_init(game, av[1]);
-	if (parsing(game) == 0)
+	ft_color(game, av[1]);// je recupere la couleur du plafond et du sol
+	map_init(game, av[1]);//je recupere la map avec le pointeur game->pars
+	if (parsing(game) == 0)//je parse la map
 		ft_close1(game);
+	initiate_mlx(game);
+	init_player_variables(player, game);
 	renderFrame(game, player);
-	// game->mlx = mlx_init();
-	// game->height = game->nbr * TILE_SIZE;
-	// game->length = len(game) * TILE_SIZE;
-	// game->mlx_win = mlx_new_window(game->mlx, game->length,
-	// 		game->height, "Cub3D");
-	// init_image(game);
-	// render(game);
 	// mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);
 	// mlx_hook(game->mlx_win, KEY_EXIT, 1L << 0, &ft_close, game);
-	// mlx_loop(game->mlx);
+	mlx_loop(game->mlx);
 }

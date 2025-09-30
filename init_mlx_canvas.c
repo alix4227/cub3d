@@ -1,12 +1,23 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-void initiate_mlx(t_data *game)
+void	initiate_mlx(t_data *game)
 {
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		return (0);
+	game->height = game->nbr * TILE_SIZE;
+	game->length = len(game) * TILE_SIZE;
+	game->mlx_win = mlx_new_window(game->mlx, game->length,
+			game->height, "Cub3D");
+	if (!game->mlx_win)
+		return (0)
 	game->img = mlx_new_image(game->mlx, game->length, game->height);
 	game->addr = mlx_get_data_addr(game->img,
 			&game->bits_per_pixel,
 			&game->line_length, &game->endian);
+	if (!init_image(game))
+		return (0);
 }
 
 int	get_color(const char *str)
