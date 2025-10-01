@@ -106,8 +106,8 @@ int	init_image(t_data *game)
 
 void	get_image(t_data *game)
 {
-	game->no_text->path = "./Textures/brick_wall_blue_64.xpm";
-	game->so_text->path = "./Textures/brick_wall_blue_64.xpm";
-	game->ea_text->path = "./Textures/brick_wall_blue_64.xpm";
+	game->no_text->path = "./Textures/brick_wall_red_64.xpm";
+	game->so_text->path = "./Textures/backroom.xpm";
+	game->ea_text->path = "./Textures/cyan_concrete.xpm";
 	game->we_text->path = "./Textures/brick_wall_blue_64.xpm";
 }

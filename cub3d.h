@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 21000
+#  define BUFFER_SIZE 100000
 # endif
 
 # ifndef TILE_SIZE
@@ -35,16 +35,6 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
-
-// # define STONE "./images/stone.xpm"
-// # define FRODO_F "./images/frodo_face.xpm"
-// # define FRODO_L "./images/frodo_left.xpm"
-// # define FRODO_R "./images/frodo_right.xpm"
-// # define FRODO_B "./images/frodo_back.xpm"
-// # define DOOR_C "./images/door_close.xpm"
-// # define DOOR_O "./images/door_open.xpm"
-// # define COLL "./images/ring.xpm"
-// # define BACKG "./images/grass.xpm"
 
 # define ROTATION_SPEED 0.05
 # define MOVE_SPEED 0.05

@@ -195,8 +195,6 @@ void	renderFrame(t_data *game, t_ray *player)
 		player->rayDirX = player->dirX + player->planeX * cameraX;
 		player->rayDirY = player->dirY + player->planeY * cameraX;
 		performDDA(player, game);
-		// if (player->perpWallDist < 0.0001)
-    	// 	player->perpWallDist = 0.0001;
 		game->lineHeight = (int)(SCREEN_HEIGHT / player->perpWallDist);
 		get_wall_texture(game, player);
 		drawColumn(x, game, player);

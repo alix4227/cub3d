@@ -6,13 +6,11 @@ void	initiate_mlx(t_data *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return ;
-	game->height = game->nbr * TILE_SIZE;
-	game->length = len(game) * TILE_SIZE;
-	game->mlx_win = mlx_new_window(game->mlx, game->length,
-			game->height, "Cub3D");
+	game->mlx_win = mlx_new_window(game->mlx, SCREEN_WIDTH,
+			SCREEN_HEIGHT, "Cub3D");
 	if (!game->mlx_win)
 		return ;
-	game->img = mlx_new_image(game->mlx, game->length, game->height);
+	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->addr = mlx_get_data_addr(game->img,
 			&game->bits_per_pixel,
 			&game->line_length, &game->endian);
@@ -39,6 +37,8 @@ int	get_color(const char *str)
 		j = 0;
 		while (str[i] && str[i] != ',')
 		{
+			if (str[i] == 'F' || str[i] == 'C')
+				i++;
 			s[j] = str[i];
 			j++;
 			i++;
