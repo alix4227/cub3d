@@ -46,44 +46,54 @@ void	rotate_right(t_ray *player)
 	player->planeY = old_planeX * sin(ROTATION_SPEED) + old_planeY * cos(ROTATION_SPEED);
 }
 
-// void	move_up(t_data *game)
-// {
-// 	if (game->pars[game->i - 1][game->j] == 'C')
-// 	{
-// 		game->count -= 1;
-// 		game->pars[game->i - 1][game->j] = 'B';
-// 		game->pars[game->i][game->j] = '0';
-// 		if (game->count == 0)
-// 			ft_door_open(game);
-// 	}
-// 	if (game->pars[game->i - 1][game->j] == '0')
-// 	{
-// 		game->pars[game->i - 1][game->j] = 'B';
-// 		game->pars[game->i][game->j] = '0';
-// 	}
-// 	if (game->pars[game->i - 1][game->j] == 'O')
-// 	{
-// 		ft_close(game);
-// 	}
-// }
+void	move_up(t_data *game, t_ray *player)
+{
+	double	new_posX;
+	double	new_posY;
 
-// void	move_down(t_data *game)
-// {
-// 	if (game->pars[game->i + 1][game->j] == 'C')
-// 	{
-// 		game->count -= 1;
-// 		game->pars[game->i + 1][game->j] = 'P';
-// 		game->pars[game->i][game->j] = '0';
-// 		if (game->count == 0)
-// 			ft_door_open(game);
-// 	}
-// 	if (game->pars[game->i + 1][game->j] == '0')
-// 	{
-// 		game->pars[game->i + 1][game->j] = 'P';
-// 		game->pars[game->i][game->j] = '0';
-// 	}
-// 	if (game->pars[game->i + 1][game->j] == 'O')
-// 	{
-// 		ft_close(game);
-// 	}
-// }
+	new_posX = player->posX + player->dirX * MOVE_SPEED;
+	new_posY = player->posY + player->dirY * MOVE_SPEED;
+	if (game->pars[(int)player->posY][(int)new_posX] == '0')
+		player->posX = new_posX;
+	if (game->pars[(int)new_posY][(int)player->posX] == '0')
+		player->posY = new_posY;
+}
+
+void	move_down(t_data *game, t_ray *player)
+{
+	double	new_posX;
+	double	new_posY;
+
+	new_posX = player->posX - player->dirX * MOVE_SPEED;
+	new_posY = player->posY - player->dirY * MOVE_SPEED;
+	if (game->pars[(int)player->posY][(int)new_posX] == '0')
+		player->posX = new_posX;
+	if (game->pars[(int)new_posY][(int)player->posX] == '0')
+		player->posY = new_posY;
+}
+
+void	move_right(t_data *game, t_ray *player)
+{
+	double	new_posX;
+	double	new_posY;
+
+	new_posX = player->posX - player->dirY * MOVE_SPEED;
+	new_posY = player->posY + player->dirX * MOVE_SPEED;
+	if (game->pars[(int)player->posY][(int)new_posX] == '0')
+		player->posX = new_posX;
+	if (game->pars[(int)new_posY][(int)player->posX] == '0')
+		player->posY = new_posY;
+}
+
+void	move_left(t_data *game, t_ray *player)
+{
+	double	new_posX;
+	double	new_posY;
+
+	new_posX = player->posX + player->dirY * MOVE_SPEED;
+	new_posY = player->posY - player->dirX * MOVE_SPEED;
+	if (game->pars[(int)player->posY][(int)new_posX] == '0')
+		player->posX = new_posX;
+	if (game->pars[(int)new_posY][(int)player->posX] == '0')
+		player->posY = new_posY;
+}

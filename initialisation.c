@@ -12,35 +12,6 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-// void	render(t_data *game)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (game->pars[y] != NULL)
-// 	{
-// 		x = 0;
-// 		while (game->pars[y][x] != '\r' && game->pars[y][x] != '\0')
-// 		{
-// 			if (game->pars[y][x] == '1')
-// 				game->img_ptr = game->img_stone;
-// 			else if (game->pars[y][x] == 'P')
-// 				game->img_ptr = game->img_frodof;
-// 			else if (game->pars[y][x] == 'L')
-// 				game->img_ptr = game->img_frodol;
-// 			choose_image(game, x, y);
-// 			choose_image_2(game, x, y);
-// 			choose_image_3(game, x, y);
-// 			mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_ptr,
-// 				x * TILE_SIZE, y * TILE_SIZE);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
 void	initiate(t_data *game)
 {
 	game->x = 0;
@@ -135,8 +106,8 @@ int	init_image(t_data *game)
 
 void	get_image(t_data *game)
 {
-	game->no_text->path = "./Textures/cyan_concrete.xpm";
+	game->no_text->path = "./Textures/brick_wall_blue_64.xpm";
 	game->so_text->path = "./Textures/brick_wall_blue_64.xpm";
 	game->ea_text->path = "./Textures/brick_wall_blue_64.xpm";
-	game->we_text->path = "./Textures/wallpaper_green_64.xpm";
+	game->we_text->path = "./Textures/brick_wall_blue_64.xpm";
 }

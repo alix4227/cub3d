@@ -50,9 +50,9 @@ int	get_color(const char *str)
 		i++;
 		k++;
 	}
-	b = nb[0];
+	r = nb[0];
 	g = nb[1];
-	r = nb[2];
+	b = nb[2];
 	res = (r << 16) + (g << 8) + b;
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:50:07 by parracha          #+#    #+#             */
-/*   Updated: 2025/09/30 17:16:48 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:52:11 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	get_wall_texture(t_data *game, t_ray *player)
     }
 }
 
-unsigned int	get_texture(t_data *game)
+unsigned int	get_texture(t_data *game, int x, int y)
 {
 	int				res;
 	int				tex_i;
@@ -41,8 +41,7 @@ unsigned int	get_texture(t_data *game)
 	unsigned char	g;
 	unsigned char	b;
 
-	tex_i = game->texture->offset_y * game->texture->line_length + game->texture->offset_x
-			* (game->texture->bits_per_pixel / 8);
+	tex_i = y * game->texture->line_length + x * (game->texture->bits_per_pixel / 8);
 	r = (unsigned char)(game->texture->addr)[tex_i + 2];
 	g = (unsigned char)(game->texture->addr)[tex_i + 1];
 	b = (unsigned char)(game->texture->addr)[tex_i];
@@ -50,40 +49,36 @@ unsigned int	get_texture(t_data *game)
 	return (res);
 }
 
-unsigned int	choose_color(t_data *game, double y, t_ray *player)
+unsigned int	choose_color(t_data *game, int x, int y)
 {
 	unsigned int	color;
-	get_wall_texture(game, player);
-	if (game->side == 1)
-		get_hor_texture_color(game, y, player);
-	else if (game->side == 0)
-		get_vert_texture_color(game, y, player);
-	color = get_texture(game);
+	
+	color = get_texture(game, x , y);
 	return (color);
 }
 
-void	get_hor_texture_color(t_data *game, double y, t_ray *player)
-{
-	game->texture->offset_y = (y * game->texture->icon_h) / floor(game->lineHeight);
-	if (game->texture->offset_y > game->texture->icon_h)
-		game->texture->offset_y = game->texture->icon_h - 1;
-	game->texture->offset_x = player->mapX % TILE_SIZE;
-	if (player->stepY == 1)
-		game->texture->offset_x = TILE_SIZE - game->texture->offset_x;
-	game->texture->offset_x = (game->texture->offset_x * game->texture->icon_w) / TILE_SIZE;
-	if (game->texture->offset_x > game->texture->icon_w)
-		game->texture->offset_x = game->texture->icon_w;
-}
+// void	get_hor_texture_color(t_data *game, double y, t_ray *player)
+// {
+// 	game->texture->offset_y = (y * game->texture->icon_h) / floor(game->lineHeight);
+// 	if (game->texture->offset_y > game->texture->icon_h)
+// 		game->texture->offset_y = game->texture->icon_h - 1;
+// 	game->texture->offset_x = player->mapX % TILE_SIZE;
+// 	if (player->stepY == 1)
+// 		game->texture->offset_x = TILE_SIZE - game->texture->offset_x;
+// 	game->texture->offset_x = (game->texture->offset_x * game->texture->icon_w) / TILE_SIZE;
+// 	if (game->texture->offset_x > game->texture->icon_w)
+// 		game->texture->offset_x = game->texture->icon_w;
+// }
 
-void	get_vert_texture_color(t_data *game, double top_pxl, t_ray *player)
-{
-	game->texture->offset_y = (top_pxl * game->texture->icon_h) / floor(game->lineHeight);
-	if (game->texture->offset_y >= game->texture->icon_h)
-		game->texture->offset_y = game->texture->icon_h - 1;
-	game->texture->offset_x = player->mapY % TILE_SIZE;
-	if (player->stepX == 1)
-		game->texture->offset_x = TILE_SIZE - game->texture->offset_x;
-	game->texture->offset_x = (game->texture->offset_x * game->texture->icon_w) / TILE_SIZE;
-	if (game->texture->offset_x >= game->texture->icon_w)
-		game->texture->offset_x = game->texture->icon_w - 1;
-}
+// void	get_vert_texture_color(t_data *game, double top_pxl, t_ray *player)
+// {
+// 	game->texture->offset_y = (top_pxl * game->texture->icon_h) / floor(game->lineHeight);
+// 	if (game->texture->offset_y >= game->texture->icon_h)
+// 		game->texture->offset_y = game->texture->icon_h - 1;
+// 	game->texture->offset_x = player->mapY % TILE_SIZE;
+// 	if (player->stepX == 1)
+// 		game->texture->offset_x = TILE_SIZE - game->texture->offset_x;
+// 	game->texture->offset_x = (game->texture->offset_x * game->texture->icon_w) / TILE_SIZE;
+// 	if (game->texture->offset_x >= game->texture->icon_w)
+// 		game->texture->offset_x = game->texture->icon_w - 1;
+// }

@@ -31,8 +31,8 @@
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
-// # define KEY_UP 65362
-// # define KEY_DOWN 65364
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
 
@@ -47,6 +47,7 @@
 // # define BACKG "./images/grass.xpm"
 
 # define ROTATION_SPEED 0.05
+# define MOVE_SPEED 0.05
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -69,6 +70,34 @@ typedef struct s_texture
 	int				icon_w;
 	int				icon_h;
 }					t_texture;
+
+typedef struct	s_ray
+{
+	double		posX;
+	double		posY;
+	double		dirX; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
+	double		dirY; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
+	double		planeX; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
+	double		planeY; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
+	double		rayDirX;
+	double		rayDirY;
+	double		cameraX;
+	int			mapX;
+	int			mapY;
+	double		sideDistX;
+	double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+	int			stepX;
+	int			stepY;
+	int			hit;
+	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
+	double		perpWallDist;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
+	int			x;
+}	t_ray;
 
 typedef struct s_data
 {
@@ -110,35 +139,8 @@ typedef struct s_data
 	t_texture	*so_text;
 	t_texture	*we_text;
 	t_texture	*ea_text;
+	t_ray		*ray;
 }	t_data;
-
-typedef struct	s_ray
-{
-	double		posX;
-	double		posY;
-	double		dirX; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
-	double		dirY; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
-	double		planeX; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
-	double		planeY; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
-	double		rayDirX;
-	double		rayDirY;
-	double		cameraX;
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	int			stepX;
-	int			stepY;
-	int			hit;
-	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
-	double		perpWallDist;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
-	int			x;
-}	t_ray;
 
 
 char	*get_next_line(int fd);
@@ -164,15 +166,15 @@ void	flood_fill(t_data *game, int x, int y);
 char	**cpy_pars(t_data *game);
 void	ft_free(t_data *game);
 void	ft_strcpy(char *str, char *str1);
-void	move_left(t_data *game);
-void	move_right(t_data *game);
-void	move_up(t_data *game);
-void	move_down(t_data *game);
+void	move_left(t_data *game, t_ray *player);
+void	move_right(t_data *game, t_ray *player);
+void	move_up(t_data *game, t_ray *player);
+void	move_down(t_data *game, t_ray *player);
 void	render(t_data *game);
 void	choose_image(t_data *game, int x, int y);
 void	choose_image_2(t_data *game, int x, int y);
 void	choose_image_3(t_data *game, int x, int y);
-int		key_hook(int keycode, t_data *game, t_ray *player);
+int		key_hook(int keycode, t_data *game);
 void	ft_door_open(t_data *game);
 void	ft_mlx_destroy_image(t_data *game);
 void	ft_free_pars(t_data *game);
@@ -210,14 +212,14 @@ int		ft_check_id2(const char *s1, const char *s2, size_t n);
 int		find_line(t_data *game, char *line);
 void	ft_color(t_data *game, char *file);
 void	putPixel(int x, int y, int color, t_data *game);
-unsigned int	choose_color(t_data *game, double y, t_ray *player);
-unsigned int	get_texture(t_data *game);
+unsigned int	choose_color(t_data *game, int x, int y);
+unsigned int	get_texture(t_data *game, int x, int y);
 void	get_wall_texture(t_data *game, t_ray *player);
 void	get_hor_texture_color(t_data *game, double y, t_ray *player);
 void	get_vert_texture_color(t_data *game, double top_pxl, t_ray *player);
 void	get_image(t_data *game);
 int		init_image(t_data *game);
 int		init_addr(t_data *game);
-void	performDDA(double rayDirX, double rayDirY, t_ray *player, t_data *game);
+void	performDDA(t_ray *player, t_data *game);
 void	renderFrame(t_data *game, t_ray *player);
 #endif

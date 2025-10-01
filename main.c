@@ -53,6 +53,7 @@ int	main(int ac, char **av)
 	player = malloc(sizeof(t_ray));
 	if (!player)
 		return (0);
+	game->ray = player;
 	game->nbr = number_of_lines(av[1]);
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
@@ -65,8 +66,8 @@ int	main(int ac, char **av)
 	}
 	ft_color(game, av[1]);// je recupere la couleur du plafond et du sol
 	map_init(game, av[1]);//je recupere la map avec le pointeur game->pars
-	if (parsing(game) == 0)//je parse la map
-		ft_close1(game);
+	// if (parsing(game) == 0)//je parse la map
+	// 	ft_close1(game);
 	initiate_mlx(game);
 	init_player_variables(player, game);
 	renderFrame(game, player);
