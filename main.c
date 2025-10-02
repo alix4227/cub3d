@@ -55,19 +55,20 @@ int	main(int ac, char **av)
 		return (0);
 	game->ray = player;
 	game->nbr = number_of_lines(av[1]);
+	initiate(game);//j'initialise mes variables
+	if (!parsing_info(game, av[1]))//je verifie que dans le fichier .cub les informations au dessus de la map sont correctes
+	{
+		printf("error\n");
+		ft_close1(game);
+		return (0);
+	}
+	ft_color(game, av[1]);// je recupere la couleur du plafond et du sol
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
 		return (0);
-	initiate(game);//j'initialise mes variables
-	// if (!parsing_info(game, av[1]))//je verifie que dans le fichier .cub les informations au dessus de la map sont correctes
-	// {
-	// 	printf("error\n");
-	// 	return (0);
-	// }
-	ft_color(game, av[1]);// je recupere la couleur du plafond et du sol
 	map_init(game, av[1]);//je recupere la map avec le pointeur game->pars
-	// if (parsing(game) == 0)//je parse la map
-	// 	ft_close1(game);
+	if (parsing(game) == 0)//je parse la map
+		ft_close1(game);
 	initiate_mlx(game, av[1]);
 	init_player_variables(player, game);
 	renderFrame(game, player);

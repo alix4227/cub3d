@@ -1,9 +1,14 @@
 NO	./Textures/backroom.xpm
+
 F	130, 87, 7
+
 SO	./Textures/cyan_concrete.xpm
+
 C	204, 157, 4
-WE	./Textures/backroom.xpm
-EA	./Textures/backroom.xpm
+
+WE	./Textures/brick_wall_red_64.xpm
+
+EA	./Textures/brick_wall_blue_64.xpm
 
 11111111111111111
 11100000000000000111111

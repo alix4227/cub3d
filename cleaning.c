@@ -23,7 +23,7 @@ void	ft_mlx_destroy_image(t_data *game)
 	if (game->ea_text->img)
 		mlx_destroy_image(game->mlx, game->ea_text->img);
 	if (game->img)
-        mlx_destroy_image(game->mlx, game->img);
+		mlx_destroy_image(game->mlx, game->img);
 }
 
 void	ft_destroy_image_path(t_data *game)
@@ -44,6 +44,8 @@ void	ft_free_pars(t_data *game)
 	int	i;
 
 	i = 0;
+	if (!game || !game->pars)
+		return;
 	while (game->pars[i])
 	{
 		free(game->pars[i]);

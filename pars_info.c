@@ -43,7 +43,7 @@ int	check_char(char *str)
 
 int	check_numbers(const char *str)
 {
-	int		nb[2];
+	int		nb[10000];
 	char	s[1000];
 	int		j;
 	int		i;
@@ -94,6 +94,45 @@ int	ft_check_id_nb(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
+char *get_line(const char *str)
+{
+	char	*s;
+	int		j;
+	int		i;
+
+	i = 0;
+	j = 0;
+	s = malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!s)
+		return NULL;
+	while (str[i] && str[i] != '\n' && str[i] != '\r')
+	{
+		s[j] = str[i];
+		j++;
+		i++;
+	}
+	s[j] = '\0';
+	return (s);
+}
+
+int	ft_check_path(const char *file)
+{
+	int fd;
+	char *str;
+
+	str = get_line(file);
+	fd = open(str, O_RDONLY);
+	if (fd < 0) 
+	{
+		perror("Wrong Path");
+		free(str);
+		return (0);
+	}
+	free(str);
+	close(fd);
+	return (1);
+}
+
 int	ft_check_id(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
@@ -107,7 +146,10 @@ int	ft_check_id(const char *s1, const char *s2, size_t n)
 	while (s1[i] && is_whitespace(s1[i]))
 		i++;
 	if (s1[i] && strncmp(&s1[i], "./", 2) == 0)
-		return (1);
+	{
+		if(ft_check_path(&s1[i]))
+			return (1);
+	}
 	return (0);
 }
 
@@ -130,31 +172,26 @@ void	ft_count_id(t_data *game, char *str)
 int	check_line(t_data *game, char *line)
 {
 	int	i;
+	int	j;
 	char *id[] = {"NO", "SO", "WE", "EA", "F", "C"};
-	char *path[] = {"./path_to_the_north_texture", "./path_to_the_south_texture", 
-		"./path_to_the_west_texture", "./path_to_the_east_texture"};
 
 	i = 0;
-	while (is_whitespace(line[i]))
-		i++;
-	if (line[i] == '\0')
+	j = 0;
+	while (is_whitespace(line[j]))
+		j++;
+	if (line[j] == '\0')
 		return (1);
-	i = 0;
 	while (i < 6)
 	{
-		if (ft_check_id(line, id[i], 1))
+		if (ft_check_id(&line[j], id[i], 1))
 		{
-			if (ft_strstr(line, path[i]))
-			{
 				ft_count_id(game, id[i]);
 				return (1);
-			}
 		}
 		if (i > 3 && ft_check_id_nb(line, id[i], 0))
 		{
 			ft_count_id(game, id[i]);
 			return (1);
-
 		}
 		i++;
 	}
@@ -200,11 +237,16 @@ int	parsing_info(t_data *game, char *file)
 		if (is_map_line(line))
 			break;
 		if (!check_line(game, line))
+		{
+			free(line);
+			get_next_line(-1);
 			return (0);
+		}
+		free(line);
 		line = get_next_line(map);
 	}
-	free(line);
 	close(map);
+	free(line);
 	get_next_line(-1);
 	if (!check_doubles(game))
 		return (0);
