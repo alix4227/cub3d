@@ -82,7 +82,7 @@ int	init_addr(t_data *game)
 	return (1);
 }
 
-int	init_image(t_data *game)
+int	init_image(t_data *game, char *file)
 {
 	game->no_text = malloc(sizeof(t_texture));
 	game->so_text = malloc(sizeof(t_texture));
@@ -90,24 +90,16 @@ int	init_image(t_data *game)
 	game->we_text = malloc(sizeof(t_texture));
 	if (!game->no_text || !game->so_text || !game->ea_text || !game->we_text)
 		return (0);
-	get_image(game);
+	get_image(game, file);
 	game->no_text->img = mlx_xpm_file_to_image(game->mlx, game->no_text->path,
 			&game->no_text->icon_w, &game->no_text->icon_h);
 	game->so_text->img = mlx_xpm_file_to_image(game->mlx, game->so_text->path,
 			&game->so_text->icon_w, &game->so_text->icon_h);
-	game->we_text->img = mlx_xpm_file_to_image(game->mlx, game->ea_text->path,
+	game->we_text->img = mlx_xpm_file_to_image(game->mlx, game->we_text->path,
 			&game->we_text->icon_w, &game->we_text->icon_h);
-	game->ea_text->img = mlx_xpm_file_to_image(game->mlx, game->we_text->path,
+	game->ea_text->img = mlx_xpm_file_to_image(game->mlx, game->ea_text->path,
 			&game->ea_text->icon_w, &game->ea_text->icon_h);
 	if (!init_addr(game))
 		return (0);
 	return (1);
-}
-
-void	get_image(t_data *game)
-{
-	game->no_text->path = "./Textures/brick_wall_red_64.xpm";
-	game->so_text->path = "./Textures/backroom.xpm";
-	game->ea_text->path = "./Textures/cyan_concrete.xpm";
-	game->we_text->path = "./Textures/brick_wall_blue_64.xpm";
 }

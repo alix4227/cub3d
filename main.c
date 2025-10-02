@@ -66,9 +66,9 @@ int	main(int ac, char **av)
 	// }
 	ft_color(game, av[1]);// je recupere la couleur du plafond et du sol
 	map_init(game, av[1]);//je recupere la map avec le pointeur game->pars
-	if (parsing(game) == 0)//je parse la map
-		ft_close1(game);
-	initiate_mlx(game);
+	// if (parsing(game) == 0)//je parse la map
+	// 	ft_close1(game);
+	initiate_mlx(game, av[1]);
 	init_player_variables(player, game);
 	renderFrame(game, player);
 	mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);

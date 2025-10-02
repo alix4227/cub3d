@@ -12,27 +12,32 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-// void	ft_mlx_destroy_image(t_data *game)
-// {
-// 	if (game->img_stone)
-// 		mlx_destroy_image(game->mlx, game->img_stone);
-// 	if (game->img_frodof)
-// 		mlx_destroy_image(game->mlx, game->img_frodof);
-// 	if (game->img_frodol)
-// 		mlx_destroy_image(game->mlx, game->img_frodol);
-// 	if (game->img_frodor)
-// 		mlx_destroy_image(game->mlx, game->img_frodor);
-// 	if (game->img_frodob)
-// 		mlx_destroy_image(game->mlx, game->img_frodob);
-// 	if (game->img_dooro)
-// 		mlx_destroy_image(game->mlx, game->img_dooro);
-// 	if (game->img_doorc)
-// 		mlx_destroy_image(game->mlx, game->img_doorc);
-// 	if (game->img_coll)
-// 		mlx_destroy_image(game->mlx, game->img_coll);
-// 	if (game->img_backg)
-// 		mlx_destroy_image(game->mlx, game->img_backg);
-// }
+void	ft_mlx_destroy_image(t_data *game)
+{
+	if (game->no_text->img)
+		mlx_destroy_image(game->mlx, game->no_text->img);
+	if (game->so_text->img)
+		mlx_destroy_image(game->mlx, game->so_text->img);
+	if (game->we_text->img)
+		mlx_destroy_image(game->mlx, game->we_text->img);
+	if (game->ea_text->img)
+		mlx_destroy_image(game->mlx, game->ea_text->img);
+	if (game->img)
+        mlx_destroy_image(game->mlx, game->img);
+}
+
+void	ft_destroy_image_path(t_data *game)
+{
+	free(game->no_text->path);
+	free(game->so_text->path);
+	free(game->ea_text->path);
+	free(game->we_text->path);
+	free(game->no_text);
+	free(game->so_text);
+	free(game->ea_text);
+	free(game->we_text);
+
+}
 
 void	ft_free_pars(t_data *game)
 {
@@ -49,21 +54,24 @@ void	ft_free_pars(t_data *game)
 
 int	ft_close(t_data *game)
 {
-	// ft_mlx_destroy_image(game);
+	ft_mlx_destroy_image(game);
+	ft_destroy_image_path(game);
 	mlx_clear_window(game->mlx, game->mlx_win);
 	mlx_destroy_window(game->mlx, game->mlx_win);
 	mlx_destroy_display(game->mlx);
 	mlx_loop_end(game->mlx);
 	free(game->mlx);
 	ft_free_pars(game);
+	free(game->ray);
 	free(game);
 	exit (0);
 }
 
 int	ft_close1(t_data *game)
 {
-	// free(game->mlx);
+	free(game->mlx);
 	ft_free_pars(game);
+	free(game->ray);
 	free(game);
 	exit (0);
 }

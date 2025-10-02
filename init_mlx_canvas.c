@@ -1,7 +1,7 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-void	initiate_mlx(t_data *game)
+void	initiate_mlx(t_data *game, char *file)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
@@ -14,13 +14,13 @@ void	initiate_mlx(t_data *game)
 	game->addr = mlx_get_data_addr(game->img,
 			&game->bits_per_pixel,
 			&game->line_length, &game->endian);
-	if (!init_image(game))
+	if (!init_image(game, file))
 		return ;
 }
 
 int	get_color(const char *str)
 {
-	int		nb[2];
+	int		nb[1000];
 	char	s[1000];
 	int		j;
 	int		i;
@@ -104,11 +104,14 @@ void	ft_color(t_data *game, char *file)
 	while (line != NULL)
 	{
 		if (is_map_line(line))
+		{
+			free(line);
 			break;
+		}
 		find_line(game, line);
+		free(line);
 		line = get_next_line(map);
 	}
-	free(line);
 	close(map);
 	get_next_line(-1);
 }

@@ -2,7 +2,7 @@
 CC			= gcc
 
 # flags
-CFLAGS		= -g -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror 
 
 # artifacts
 NAME		= cub3D
@@ -18,11 +18,12 @@ SRCS	= get_next_line.c \
 		cleaning.c\
 		flood_fill.c\
 		pars_info.c\
-		animations.c\
+		rotations.c\
 		animations2.c\
 		DDA.c\
 		ft_render.c\
 		ft_texture.c\
+		ft_textures.c\
 		init_mlx_canvas.c\
 		init_player.c\
 		main.c 
