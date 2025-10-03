@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   by: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   created: 2025/04/08 14:20:05 by acrusoe           #+#    #+#             */
-/*   updated: 2025/04/08 14:20:05 by acrusoe          ###   ########.fr       */
+/*   Created: 2025/10/03 14:11:14 by acrusoe           #+#    #+#             */
+/*   Updated: 2025/10/03 14:11:14 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 #include "mlx.h"
 
@@ -48,7 +49,7 @@ void	map_init(t_data *game, char *file)
 	while (line != NULL)
 	{
 		if (is_map_line(line))
-			break;
+			break ;
 		free(line);
 		line = get_next_line(map);
 	}
@@ -63,7 +64,7 @@ void	map_init(t_data *game, char *file)
 }
 
 int	init_addr(t_data *game)
-{	
+{
 	game->no_text->addr = mlx_get_data_addr(game->no_text->img,
 			&game->no_text->bits_per_pixel, &game->no_text->line_length,
 			&game->no_text->endian);

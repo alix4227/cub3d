@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_textures.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 13:56:58 by acrusoe           #+#    #+#             */
+/*   Updated: 2025/10/03 13:56:58 by acrusoe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "mlx.h"
 
-char *get_image_path(const char *str)
+char	*get_image_path(const char *str)
 {
 	char	*s;
 	int		j;
@@ -11,7 +23,7 @@ char *get_image_path(const char *str)
 	j = 0;
 	s = malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (!s)
-		return NULL;
+		return (NULL);
 	while (str[i] && str[i] != '.')
 		i++;
 	while (str[i] && str[i] != '\n' && str[i] != '\r')
@@ -24,16 +36,33 @@ char *get_image_path(const char *str)
 	return (s);
 }
 
+static void	init_ids(char **id)
+{
+	id[0] = "NO";
+	id[1] = "SO";
+	id[2] = "WE";
+	id[3] = "EA";
+}
+
+static void	init_textures(char ***textures, t_data *game)
+{
+	textures[0] = &game->no_text->path;
+	textures[1] = &game->so_text->path;
+	textures[2] = &game->we_text->path;
+	textures[3] = &game->ea_text->path;
+}
+
 void	find_lines(t_data *game, char *line)
 {
-	int	i;
-	int	j;
-	char *id[] = {"NO", "SO", "WE", "EA"};
-	char **textures[] = {&game->no_text->path, &game->so_text->path,
-		&game->we_text->path, &game->ea_text->path};
-	
+	int		i;
+	int		j;
+	char	*id[4];
+	char	**textures[4];
+
 	i = 0;
 	j = 0;
+	init_ids(id);
+	init_textures(textures, game);
 	while (is_whitespace(line[i]))
 		i++;
 	while (j < 4)
@@ -59,7 +88,7 @@ void	get_image(t_data *game, char *file)
 		if (is_map_line(line))
 		{
 			free(line);
-			break;
+			break ;
 		}
 		find_lines(game, line);
 		free(line);

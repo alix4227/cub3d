@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mlx_canvas.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 14:05:31 by acrusoe           #+#    #+#             */
+/*   Updated: 2025/10/03 14:05:31 by acrusoe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "mlx.h"
 
@@ -46,7 +58,7 @@ int	get_color(const char *str)
 		s[j] = '\0';
 		nb[k] = atoi(s);
 		if (str[i] == '\0')
-			break;
+			break ;
 		i++;
 		k++;
 	}
@@ -71,10 +83,12 @@ int	ft_check_id2(const char *s1, const char *s2, size_t n)
 
 int	find_line(t_data *game, char *line)
 {
-	int	i;
-	char *id[] = {"F", "C"};
-	
+	int		i;
+	char	*id[2];
+
 	i = 0;
+	id[0] = "F";
+	id[1] = "C";
 	while (is_whitespace(line[i]))
 		i++;
 	if (line[i] == '\0')
@@ -106,7 +120,7 @@ void	ft_color(t_data *game, char *file)
 		if (is_map_line(line))
 		{
 			free(line);
-			break;
+			break ;
 		}
 		find_line(game, line);
 		free(line);
@@ -115,8 +129,3 @@ void	ft_color(t_data *game, char *file)
 	close(map);
 	get_next_line(-1);
 }
-
-
-
-
-

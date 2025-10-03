@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 14:12:17 by acrusoe           #+#    #+#             */
+/*   Updated: 2025/10/03 14:12:17 by acrusoe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mlx.h"
 #include "cub3d.h"
 
@@ -45,7 +57,8 @@ void	check_arg(int ac, char *file)
 int	main(int ac, char **av)
 {
 	t_data	*game;
-	t_ray *player;
+	t_ray	*player;
+
 	check_arg(ac, av[1]);
 	game = malloc(sizeof(t_data));
 	if (!game)
@@ -56,7 +69,7 @@ int	main(int ac, char **av)
 	game->ray = player;
 	game->nbr = number_of_lines(av[1]);
 	initiate(game);//j'initialise mes variables
-	if (!parsing_info(game, av[1]))//je verifie que dans le fichier .cub les informations au dessus de la map sont correctes
+	if (!parsing_info(game, av[1])) //je verifie que dans le fichier .cub les informations au dessus de la map sont correctes
 	{
 		printf("error\n");
 		ft_close1(game);
@@ -66,8 +79,8 @@ int	main(int ac, char **av)
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
 		return (0);
-	map_init(game, av[1]);//je recupere la map avec le pointeur game->pars
-	if (parsing(game) == 0)//je parse la map
+	map_init(game, av[1]); //je recupere la map avec le pointeur game->pars
+	if (parsing(game) == 0) //je parse la map
 		ft_close1(game);
 	initiate_mlx(game, av[1]);
 	init_player_variables(player, game);
