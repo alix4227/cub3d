@@ -77,7 +77,6 @@ int	check_doublons(t_data *game)
 
 	y = 0;
 	game->count = 0;
-	game->count2 = 0;
 	while (game->pars[y] != NULL)
 	{
 		x = 0;
@@ -94,8 +93,6 @@ int	check_doublons(t_data *game)
 	{
 		if (game->count > 1)
 			write(2, "Error: Too much start\n", 22);
-		if (game->count2 > 1)
-			write(2, "Error: Too much exit\n", 21);
 		return (0);
 	}
 	return (1);

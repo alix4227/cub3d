@@ -67,7 +67,7 @@
  */
 
 
-void drawcolumn(int x, t_data *game, t_ray *player) 
+void drawcolumn(int x, t_data *game, t_ray *player)
 {
 	int y;
 	int drawstart;
@@ -103,7 +103,7 @@ if ((game->side == 0 && player->raydirx > 0) || (game->side == 1 && player->rayd
 double step = 1.0 * game->texture->icon_h / game->lineheight;
 double texpos = (drawstart - SCREEN_HEIGHT / 2 + game->lineheight / 2) * step;
 	y = drawstart;
-	while (y < drawend) 
+	while (y < drawend)
 	{
 		int texy = (int)texpos;
 if (texy >= game->texture->icon_h)
@@ -118,7 +118,7 @@ if (texy >= game->texture->icon_h)
 	}
     // dessiner le sol (du mur jusqu'au bas)
 	y = drawend;
-	while (y < SCREEN_HEIGHT) 
+	while (y < SCREEN_HEIGHT)
 	{
 		putpixel(x, y, game->color_f, game);
 		y++;

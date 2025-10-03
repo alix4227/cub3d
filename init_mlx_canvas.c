@@ -30,17 +30,25 @@ void	initiate_mlx(t_data *game, char *file)
 		return ;
 }
 
-int	get_color(const char *str)
+int	find_color2(int *nb)
 {
-	int		nb[1000];
-	char	s[1000];
-	int		j;
-	int		i;
-	int		k;
 	int		b;
 	int		g;
 	int		r;
 	int		res;
+
+	r = nb[0];
+	g = nb[1];
+	b = nb[2];
+	res = (r << 16) + (g << 8) + b;
+	return (res);
+}
+
+void	find_color(const char *str, char *s, int *nb)
+{
+	int	i;
+	int	j;
+	int	k;
 
 	i = 0;
 	k = 0;
@@ -51,22 +59,23 @@ int	get_color(const char *str)
 		{
 			if (str[i] == 'F' || str[i] == 'C')
 				i++;
-			s[j] = str[i];
-			j++;
-			i++;
+			s[j++] = str[i++];
 		}
 		s[j] = '\0';
-		nb[k] = atoi(s);
+		nb[k++] = atoi(s);
 		if (str[i] == '\0')
 			break ;
 		i++;
-		k++;
 	}
-	r = nb[0];
-	g = nb[1];
-	b = nb[2];
-	res = (r << 16) + (g << 8) + b;
-	return (res);
+}
+
+int	get_color(const char *str)
+{
+	int		nb[1000];
+	char	s[1000];
+
+	find_color(str, s, nb);
+	return (find_color2(nb));
 }
 
 int	ft_check_id2(const char *s1, const char *s2, size_t n)
