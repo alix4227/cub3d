@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_info.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 14:45:48 by acrusoe           #+#    #+#             */
+/*   Updated: 2025/10/03 14:45:48 by acrusoe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "mlx.h"
 
-int check_range(int *nb)
+int	check_range(int *nb)
 {
 	int	i;
 
@@ -20,7 +32,7 @@ int check_range(int *nb)
 int	check_char(char *str)
 {
 	int	i;
-	int digit;
+	int	digit;
 
 	i = 0;
 	digit = 0;
@@ -33,7 +45,6 @@ int	check_char(char *str)
 		digit = 1;
 		i++;
 	}
-		
 	while (is_whitespace(str[i]))
 		i++;
 	if (digit && str[i] == '\0')
@@ -41,40 +52,46 @@ int	check_char(char *str)
 	return (0);
 }
 
-int	check_numbers(const char *str)
+int	get_nb(const char *str, char *s, int *nb, int i)
 {
-	int		nb[10000];
-	char	s[1000];
 	int		j;
-	int		i;
 	int		k;
 
-	i = 0;
 	k = 0;
-	if (!str || str[0] == '\0')
-		return (0);
 	while (str[i])
 	{
 		j = 0;
 		while (str[i] && str[i] != ',')
 		{
-			s[j] = str[i];
-			j++;
-			i++;
+			s[j++] = str[i++];
 		}
 		s[j] = '\0';
-		if(!check_char(s))
+		if (!check_char(s))
 			return (0);
-		nb[k] = atoi(s);
+		if (k >= 3)
+			return (0);
+		nb[k++] = atoi(s);
 		if (str[i] == '\0')
-			break;
+			break ;
 		i++;
-		k++;
 	}
+	return (1);
+}
+
+int	check_numbers(const char *str)
+{
+	int		nb[1000];
+	char	s[1000000];
+	int		i;
+
+	i = 0;
+	if (!str || str[0] == '\0')
+		return (0);
+	if (!get_nb(str, s, nb, i))
+		return (0);
 	if (check_range(nb))
 		return (1);
 	return (0);
-	
 }
 
 int	ft_check_id_nb(const char *s1, const char *s2, size_t n)
@@ -94,7 +111,7 @@ int	ft_check_id_nb(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-char *get_line(const char *str)
+char	*get_line(const char *str)
 {
 	char	*s;
 	int		j;
@@ -104,7 +121,7 @@ char *get_line(const char *str)
 	j = 0;
 	s = malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (!s)
-		return NULL;
+		return (NULL);
 	while (str[i] && str[i] != '\n' && str[i] != '\r')
 	{
 		s[j] = str[i];
@@ -117,12 +134,12 @@ char *get_line(const char *str)
 
 int	ft_check_path(const char *file)
 {
-	int fd;
-	char *str;
+	int		fd;
+	char	*str;
 
 	str = get_line(file);
 	fd = open(str, O_RDONLY);
-	if (fd < 0) 
+	if (fd < 0)
 	{
 		perror("Wrong Path");
 		free(str);
@@ -147,7 +164,7 @@ int	ft_check_id(const char *s1, const char *s2, size_t n)
 		i++;
 	if (s1[i] && strncmp(&s1[i], "./", 2) == 0)
 	{
-		if(ft_check_path(&s1[i]))
+		if (ft_check_path(&s1[i]))
 			return (1);
 	}
 	return (0);
@@ -157,7 +174,7 @@ void	ft_count_id(t_data *game, char *str)
 {
 	if (strcmp(str, "NO") == 0)
 		game->no++;
-	else if(strcmp(str, "SO") == 0)
+	else if (strcmp(str, "SO") == 0)
 		game->so++;
 	else if (strcmp(str, "WE") == 0)
 		game->we++;
@@ -169,24 +186,27 @@ void	ft_count_id(t_data *game, char *str)
 		game->c++;
 }
 
-int	check_line(t_data *game, char *line)
+static void	init_ids2(char **id)
+{
+	id[0] = "NO";
+	id[1] = "SO";
+	id[2] = "WE";
+	id[3] = "EA";
+	id[4] = "F";
+	id[5] = "C";
+}
+
+int	check_lines2(char *line, char **id, int j, t_data *game)
 {
 	int	i;
-	int	j;
-	char *id[] = {"NO", "SO", "WE", "EA", "F", "C"};
 
 	i = 0;
-	j = 0;
-	while (is_whitespace(line[j]))
-		j++;
-	if (line[j] == '\0')
-		return (1);
 	while (i < 6)
 	{
 		if (ft_check_id(&line[j], id[i], 1))
 		{
-				ft_count_id(game, id[i]);
-				return (1);
+			ft_count_id(game, id[i]);
+			return (1);
 		}
 		if (i > 3 && ft_check_id_nb(line, id[i], 0))
 		{
@@ -198,12 +218,39 @@ int	check_line(t_data *game, char *line)
 	return (0);
 }
 
+int	check_line(t_data *game, char *line)
+{
+	int		j;
+	char	*id[6];
+
+	j = 0;
+	init_ids2(id);
+	while (is_whitespace(line[j]))
+		j++;
+	if (line[j] == '\0')
+		return (1);
+	if (check_lines2(line, id, j, game))
+		return (1);
+	return (0);
+}
+
+static void	init_doublons(int *doublons, t_data *game)
+{
+	doublons[0] = game->no;
+	doublons[1] = game->so;
+	doublons[2] = game->we;
+	doublons[3] = game->ea;
+	doublons[4] = game->f;
+	doublons[5] = game->c;
+}
+
 int	check_doubles(t_data *game)
 {
-	int	doublons[] = {game->no, game->so, game->we, game->ea, game->f, game->c};
+	int	doublons[6];
 	int	i;
 
 	i = 0;
+	init_doublons(doublons, game);
 	while (i < 6)
 	{
 		if (doublons[i] != 1)
@@ -235,7 +282,7 @@ int	parsing_info(t_data *game, char *file)
 	while (line != NULL)
 	{
 		if (is_map_line(line))
-			break;
+			break ;
 		if (!check_line(game, line))
 		{
 			free(line);
