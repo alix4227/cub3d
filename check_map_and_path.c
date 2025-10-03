@@ -53,7 +53,7 @@ int	check_path(t_data *game, int x, int y)
 			break ;
 		y++;
 	}
-	if (check_flood_fill(game, x , y) == 1)
+	if (check_flood_fill(game, x, y) == 1)
 		return (0);
 	return (1);
 }

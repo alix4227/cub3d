@@ -16,12 +16,12 @@ void	init_player_variables(t_ray *player, t_data *game)
 			dir = game->pars[y][x];
 			if (dir == 'N' || dir == 'S' || dir == 'W' || dir == 'E')
 			{
-				player->posX = x;
-				player->posY = y;
-				player->dirX = (dir == 'E') - (dir == 'W');
-				player->dirY = (dir == 'S') - (dir == 'N');
-				player->planeX = -player->dirY * 0.66;
-				player->planeY = player->dirX * 0.66;
+				player->posx = x;
+				player->posy = y;
+				player->dirx = (dir == 'E') - (dir == 'W');
+				player->diry = (dir == 'S') - (dir == 'N');
+				player->planex = -player->diry * 0.66;
+				player->planey = player->dirx * 0.66;
 				return ;
 			}
 		}

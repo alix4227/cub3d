@@ -36,7 +36,6 @@ void	ft_destroy_image_path(t_data *game)
 	free(game->so_text);
 	free(game->ea_text);
 	free(game->we_text);
-
 }
 
 void	ft_free_pars(t_data *game)
@@ -45,7 +44,7 @@ void	ft_free_pars(t_data *game)
 
 	i = 0;
 	if (!game || !game->pars)
-		return;
+		return ;
 	while (game->pars[i])
 	{
 		free(game->pars[i]);

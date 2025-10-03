@@ -6,14 +6,14 @@
 /*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:01:51 by blefebvr          #+#    #+#             */
-/*   Updated: 2025/10/01 21:03:57 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/03 13:47:21 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
 
-void	putPixel(int x, int y, int color, t_data *game)
+void	putpixel(int x, int y, int color, t_data *game)
 {
 	char	*dst;
 

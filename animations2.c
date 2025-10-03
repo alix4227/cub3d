@@ -40,7 +40,7 @@ int	key_hook(int keycode, t_data *game)
 		rotate_left(game->ray);
 	if (keycode == KEY_RIGHT)
 		rotate_right(game->ray);
-	if (keycode == KEY_W )
+	if (keycode == KEY_W)
 		move_up(game, game->ray);
 	if (keycode == KEY_S)
 		move_down(game, game->ray);
@@ -50,6 +50,6 @@ int	key_hook(int keycode, t_data *game)
 		move_right(game, game->ray);
 	if (keycode == KEY_ESC)
 		ft_close(game);
-	renderFrame(game, game->ray);
+	renderframe(game, game->ray);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   by: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 14:14:52 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/04/08 14:14:52 by acrusoe          ###   ########.fr       */
+/*   created: 2025/04/08 14:14:52 by acrusoe           #+#    #+#             */
+/*   updated: 2025/04/08 14:14:52 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,29 @@ typedef struct s_texture
 
 typedef struct	s_ray
 {
-	double		posX;
-	double		posY;
-	double		dirX; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
-	double		dirY; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
-	double		planeX; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
-	double		planeY; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
-	double		rayDirX;
-	double		rayDirY;
-	double		cameraX;
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	int			stepX;
-	int			stepY;
+	double		posx;
+	double		posy;
+	double		dirx; //vecteur de direction (commence à -1 pour N, 1 pour S, 0 sinon)
+	double		diry; //vecteur de direction (commence à -1 pour W, 1 pour E, 0 sinon)
+	double		planex; //vecteur du plan (commence à 0.66 pour E, -0.66 pour W, 0 sinon)
+	double		planey; //vecteur du plan (commence à 0.66 pour N, -0.66 pour S, 0 sinon)
+	double		raydirx;
+	double		raydiry;
+	double		camerax;
+	int			mapx;
+	int			mapy;
+	double		sidedistx;
+	double		sidedisty;
+	double		deltadistx;
+	double		deltadisty;
+	int			stepx;
+	int			stepy;
 	int			hit;
 	int			side; // 0 si c'est un cote x qui est touche (vertical), 1 si un cote y (horizontal)
-	double		perpWallDist;
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;
+	double		perpwalldist;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
 	int			x;
 }	t_ray;
 
@@ -122,7 +122,7 @@ typedef struct s_data
 	int			color_c;
 	int			color_f;
 	int			side;
-	int			lineHeight;
+	int			lineheight;
 	t_texture	*texture;
 	t_texture	*image;
 	t_texture	*no_text;
@@ -201,7 +201,7 @@ int		get_color(const char *str);
 int		ft_check_id2(const char *s1, const char *s2, size_t n);
 int		find_line(t_data *game, char *line);
 void	ft_color(t_data *game, char *file);
-void	putPixel(int x, int y, int color, t_data *game);
+void	putpixel(int x, int y, int color, t_data *game);
 unsigned int	choose_color(t_data *game, int x, int y);
 unsigned int	get_texture(t_data *game, int x, int y);
 void	get_wall_texture(t_data *game, t_ray *player);
@@ -210,6 +210,6 @@ void	get_vert_texture_color(t_data *game, double top_pxl, t_ray *player);
 void	get_image(t_data *game, char *file);
 int		init_image(t_data *game, char *file);
 int		init_addr(t_data *game);
-void	performDDA(t_ray *player, t_data *game);
-void	renderFrame(t_data *game, t_ray *player);
+void	performdda(t_ray *player, t_data *game);
+void	renderframe(t_data *game, t_ray *player);
 #endif

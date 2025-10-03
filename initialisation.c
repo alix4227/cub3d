@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   by: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 14:20:05 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/04/08 14:20:05 by acrusoe          ###   ########.fr       */
+/*   created: 2025/04/08 14:20:05 by acrusoe           #+#    #+#             */
+/*   updated: 2025/04/08 14:20:05 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -33,7 +33,7 @@ void	initiate(t_data *game)
 	game->bits_per_pixel = 0;
 	game->line_length = 0;
 	game->endian = 0;
-	game->lineHeight = 0;
+	game->lineheight = 0;
 }
 
 void	map_init(t_data *game, char *file)

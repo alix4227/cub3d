@@ -25,7 +25,8 @@ int	check_items(t_data *game)
 		{
 			if (game->pars[y][x] != 'N' && game->pars[y][x] != 'S' &&
 				game->pars[y][x] != 'E' && game->pars[y][x] != 'W'
-				&& game->pars[y][x] != '0' && game->pars[y][x] != '1' && !is_whitespace(game->pars[y][x]))
+				&& game->pars[y][x] != '0' && game->pars[y][x] != '1'
+				&& !is_whitespace(game->pars[y][x]))
 			{
 				write(1, "Error: wrong item\n", 18);
 				return (0);

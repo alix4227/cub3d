@@ -71,7 +71,7 @@ int	main(int ac, char **av)
 		ft_close1(game);
 	initiate_mlx(game, av[1]);
 	init_player_variables(player, game);
-	renderFrame(game, player);
+	renderframe(game, player);
 	mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);
 	mlx_hook(game->mlx_win, KEY_EXIT, 1L << 0, &ft_close, game);
 	mlx_loop(game->mlx);
