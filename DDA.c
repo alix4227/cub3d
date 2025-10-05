@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   DDA.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 18:41:36 by acrusoe           #+#    #+#             */
+/*   Updated: 2025/10/03 18:41:36 by acrusoe          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "mlx.h"
 // // ========== Étape 1: initialisation des directions ==========
@@ -65,58 +77,55 @@
  * donc la distance fractionnaire est (23 - 22.3) = 0.7
  * et sidedistx = 0.7 * deltadistx
  */
-
-
-void drawcolumn(int x, t_data *game, t_ray *player)
+void	get_texx(t_data *game, t_ray *player)
 {
-	int y;
-	int drawstart;
-	int drawend;
-	
+	double	wallx;
+	if (game->side == 0) // mur vertical
+		wallx = player->posy + player->perpwalldist * player->raydiry;
+	else // mur horizontal
+		wallx = player->posx + player->perpwalldist * player->raydirx;
+	wallx -= floor(wallx);
+// choix de la coordonnée X dans la texture
+	game->texx = (int)(wallx * (double)game->texture->icon_w);
+	if ((game->side == 0 && player->raydirx > 0) || (game->side == 1 && player->raydiry < 0))
+		game->texx = game->texture->icon_w - game->texx - 1;
+}
+
+void	drawcolumn(int x, t_data *game, t_ray *player)
+{
+	int		y;
+	int		drawstart;
+	int		drawend;
+	double	step;
+	double	texpos;
+
 	drawstart = -game->lineheight / 2 + SCREEN_HEIGHT / 2;
-	y = 0;
 	if (drawstart < 0)
 		drawstart = 0;
 	drawend = game->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (drawend >= SCREEN_HEIGHT) 
+	if (drawend >= SCREEN_HEIGHT)
 		drawend = SCREEN_HEIGHT - 1;
-    // dessiner le plafond (du haut jusqu'au mur)
+	// Dessiner le plafond
+	y = 0;
 	while (y < drawstart)
 	{
 		putpixel(x, y, game->color_c, game);
 		y++;
 	}
-    // dessiner le mur
-	double wallx;
-if (game->side == 0) // mur vertical
-    wallx = player->posy + player->perpwalldist * player->raydiry;
-else           // mur horizontal
-    wallx = player->posx + player->perpwalldist * player->raydirx;
-wallx -= floor(wallx);
-
-// choix de la coordonnée X dans la texture
-int texx = (int)(wallx * (double)game->texture->icon_w);
-if ((game->side == 0 && player->raydirx > 0) || (game->side == 1 && player->raydiry < 0))
-    texx = game->texture->icon_w - texx - 1;
-
-// calcul du pas pour Y
-double step = 1.0 * game->texture->icon_h / game->lineheight;
-double texpos = (drawstart - SCREEN_HEIGHT / 2 + game->lineheight / 2) * step;
+	// Préparer la texture du mur
+	get_texx(game, player);
+	step = 1.0 * game->texture->icon_h / game->lineheight;
+	texpos = (drawstart - SCREEN_HEIGHT / 2 + game->lineheight / 2) * step;
+	// Dessiner le mur
 	y = drawstart;
 	while (y < drawend)
 	{
-		int texy = (int)texpos;
-if (texy >= game->texture->icon_h)
-    texy = game->texture->icon_h - 1;
-    	texpos += step;
-		// dessiner un pixel du mur à la position (x, y)
-    // la couleur dépend du type de mur (worldmap[mapx][mapy])
-    // et du côté touché (side) pour les ombres
-		// int color = getwallcolor(worldmap[mapx][mapy], side);
-		putpixel(x, y, choose_color(game, texx, texy), game);
+		game->texy = (int)texpos & (game->texture->icon_h - 1);
+		putpixel(x, y, choose_color(game, game->texx, game->texy), game);
+		texpos += step;
 		y++;
 	}
-    // dessiner le sol (du mur jusqu'au bas)
+	// Dessiner le sol
 	y = drawend;
 	while (y < SCREEN_HEIGHT)
 	{
@@ -185,11 +194,11 @@ void	performdda(t_ray *player, t_data *game)
 
 void	renderframe(t_data *game, t_ray *player)
 {
-	int x;
-	double camerax;
-	
+	int		x;
+	double	camerax;
+
 	x = 0;
-	while (x < SCREEN_WIDTH) 
+	while (x < SCREEN_WIDTH)
 	{
 		camerax = 2 * x / (double)SCREEN_WIDTH - 1;
 		player->raydirx = player->dirx + player->planex * camerax;

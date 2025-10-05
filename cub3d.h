@@ -101,6 +101,8 @@ typedef struct s_data
 	int			ea;
 	int			f;
 	int			c;
+	int			texx;
+	int			texy;
 	int			path_error;
 	int			count;
 	int			count1;
