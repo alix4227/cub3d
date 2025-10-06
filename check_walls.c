@@ -12,35 +12,6 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-size_t	len2(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	len_y(t_data *game, int x)
-{
-	int	y;
-
-	y = 0;
-	while (game->pars[y] && game->pars[y][x] != '\n')
-		y++;
-	return (y);
-}
-
-int is_whitespace(char c)
-{
-	if ((c >= 9 && c <= 13) || (c == ' '))
-		return (1);
-	return (0);
-}
-
 int	check_walls_1(t_data *game)
 {
 	int	x;

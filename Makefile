@@ -14,16 +14,23 @@ SRCS	= get_next_line.c \
 		initialisation.c \
 		check_map_and_path.c \
 		check_walls.c \
+		check_walls_utils.c\
+		check_color_lines.c\
+		check_cardinal_lines.c\
 		parsing_utils.c\
 		cleaning.c\
 		flood_fill.c\
+		ft_color.c\
+		find_color_line.c\
 		pars_info.c\
 		rotations.c\
+		rotations2.c\
 		animations2.c\
 		DDA.c\
 		ft_render.c\
 		ft_texture.c\
 		ft_textures.c\
+		ft_doublons.c\
 		init_mlx_canvas.c\
 		init_player.c\
 		main.c 

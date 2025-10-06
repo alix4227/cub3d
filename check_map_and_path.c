@@ -60,20 +60,7 @@ int	check_path(t_data *game, int x, int y)
 
 int	parsing(t_data *game)
 {
-	// int	x;
-	// int	y;
-
-	// x = 0;
-	// y = 0;
 	if (check_map(game) == 0)
 		return (0);
-	// game->pars_temp = cpy_pars(game);
-	// if (check_path(game, x, y) == 0)
-	// {
-	// 	write(1, "Error: No path\n", 15);
-	// 	ft_free(game);
-	// 	return (0);
-	// }
-	// ft_free(game);
 	return (1);
 }
