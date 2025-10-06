@@ -72,10 +72,6 @@
 
 /* explication sidedistx:
  * C'est la distance du point de départ jusqu'à la prochaine ligne verticale de la grille
- * si on est à la position 22.3 et qu'on va vers la droite (stepx = 1),
- * la prochaine ligne verticale est à x = 23
- * donc la distance fractionnaire est (23 - 22.3) = 0.7
- * et sidedistx = 0.7 * deltadistx
  */
 void	get_texx(t_data *game, t_ray *player)
 {
