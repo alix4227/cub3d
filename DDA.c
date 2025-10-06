@@ -80,6 +80,7 @@
 void	get_texx(t_data *game, t_ray *player)
 {
 	double	wallx;
+
 	if (game->side == 0) // mur vertical
 		wallx = player->posy + player->perpwalldist * player->raydiry;
 	else // mur horizontal
@@ -87,7 +88,8 @@ void	get_texx(t_data *game, t_ray *player)
 	wallx -= floor(wallx);
 // choix de la coordonnée X dans la texture
 	game->texx = (int)(wallx * (double)game->texture->icon_w);
-	if ((game->side == 0 && player->raydirx > 0) || (game->side == 1 && player->raydiry < 0))
+	if ((game->side == 0 && player->raydirx > 0)
+		|| (game->side == 1 && player->raydiry < 0))
 		game->texx = game->texture->icon_w - game->texx - 1;
 }
 
@@ -134,43 +136,60 @@ void	drawcolumn(int x, t_data *game, t_ray *player)
 	}
 }
 
-void	get_position_and_distance(t_ray *player)
+void	get_position(t_ray *player)
 {
-	player->deltadistx = (player->raydirx == 0) ? 1e30 : fabs(1 / player->raydirx);
-	player->deltadisty = (player->raydiry == 0) ? 1e30 : fabs(1 / player->raydiry);
 	player->mapx = (int)player->posx;
 	player->mapy = (int)player->posy;
-	if (player->raydirx < 0) 
+}
+
+void	get_distance(t_ray *player)
+{
+	if (player->raydirx == 0)
+		player->deltadistx = 1e30;
+	else
+		player->deltadistx = fabs(1 / player->raydirx);
+	if (player->raydiry == 0)
+		player->deltadisty = 1e30;
+	else
+		player->deltadisty = fabs(1 / player->raydiry);
+}
+
+void	get_position_and_distance(t_ray *player)
+{
+	get_distance(player);
+	get_position(player);
+	if (player->raydirx < 0)
 	{
 		player->stepx = -1;
 		player->sidedistx = (player->posx - player->mapx) * player->deltadistx;
-	} 
+	}
 	else
 	{
 		player->stepx = 1;
-		player->sidedistx = (player->mapx + 1.0 - player->posx) * player->deltadistx;
+		player->sidedistx = (player->mapx + 1.0 - player->posx)
+			* player->deltadistx;
 	}
 	if (player->raydiry < 0)
 	{
 		player->stepy = -1;
 		player->sidedisty = (player->posy - player->mapy) * player->deltadisty;
-	} 
+	}
 	else
 	{
 		player->stepy = 1;
-		player->sidedisty = (player->mapy + 1.0 - player->posy) * player->deltadisty;
+		player->sidedisty = (player->mapy + 1.0 - player->posy)
+			* player->deltadisty;
 	}
 }
 
-void	performdda(t_ray *player, t_data *game)
+void	did_it_hit_wall(t_ray *player, t_data *game)
 {
-	int hit;
+	int	hit;
 
 	hit = 0;
-	get_position_and_distance(player);
-	while (hit == 0) 
+	while (hit == 0)
 	{
-		if (player->sidedistx < player->sidedisty) 
+		if (player->sidedistx < player->sidedisty)
 		{
 			player->sidedistx += player->deltadistx;
 			player->mapx += player->stepx;
@@ -185,11 +204,18 @@ void	performdda(t_ray *player, t_data *game)
 		if (game->pars[player->mapy][player->mapx] > '0')
 			hit = 1;
 	}
-	if (game->side == 0) 
-		player->perpwalldist = (player->mapx - player->posx + (1 - player->stepx) / 2) / player->raydirx;
-	else 
-		player->perpwalldist = (player->mapy - player->posy + (1 - player->stepy) / 2) / player->raydiry;
+}
 
+void	performdda(t_ray *player, t_data *game)
+{
+	get_position_and_distance(player);
+	did_it_hit_wall(player, game);
+	if (game->side == 0)
+		player->perpwalldist = (player->mapx - player->posx
+				+ (1 - player->stepx) / 2) / player->raydirx;
+	else
+		player->perpwalldist = (player->mapy - player->posy
+				+ (1 - player->stepy) / 2) / player->raydiry;
 }
 
 void	renderframe(t_data *game, t_ray *player)
