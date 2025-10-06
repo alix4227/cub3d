@@ -2,7 +2,7 @@
 CC			= gcc
 
 # flags
-CFLAGS		= -g -Wall -Wextra -Werror 
+CFLAGS		= -g -Wall -Wextra -Werror -I./mlx-linux
 
 # artifacts
 NAME		= cub3D
@@ -34,7 +34,7 @@ OBJS	= ${SRCS:.c=.o}
 # mlx library
 MLX_NAME	= -lmlx_Linux
 MLX_PATH	= ./mlx-linux
-MLX_FLAGS   = -lXext -lX11 -lmlx -lm
+MLX_FLAGS   = -lXext -lX11 -lmlx -lm -lz
 MLX			= -L${MLX_PATH} ${MLX_NAME} ${MLX_FLAGS}
 
 # cub3d library

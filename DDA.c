@@ -89,47 +89,58 @@ void	get_texx(t_data *game, t_ray *player)
 		game->texx = game->texture->icon_w - game->texx - 1;
 }
 
+static void	draw_ceiling(t_data *game, int x)
+{
+	int	y;
+
+	y = 0;
+	while (y < game->drawstart)
+		putpixel(x, y++, game->color_c, game);
+}
+
+static void	draw_wall(t_data *game, t_ray *player, int x)
+{
+	int	y;
+
+	get_texx(game, player);
+	game->step = 1.0 * game->texture->icon_h / game->lineheight;
+	game->texpos = (game->drawstart - SCREEN_HEIGHT / 2
+			+ game->lineheight / 2) * game->step;
+	y = game->drawstart;
+	while (y < game->drawend)
+	{
+		game->texy = (int)game->texpos & (game->texture->icon_h - 1);
+		putpixel(x, y, choose_color(game, game->texx, game->texy), game);
+		game->texpos += game->step;
+		y++;
+	}
+}
+
+static void	draw_floor(t_data *game, int x)
+{
+	int	y;
+
+	y = game->drawend;
+	while (y < SCREEN_HEIGHT)
+		putpixel(x, y++, game->color_f, game);
+}
+
+void	draw_picture(t_data *game, t_ray *player, int x)
+{
+	draw_ceiling(game, x);
+	draw_wall(game, player, x);
+	draw_floor(game, x);
+}
+
 void	drawcolumn(int x, t_data *game, t_ray *player)
 {
-	int		y;
-	int		drawstart;
-	int		drawend;
-	double	step;
-	double	texpos;
-
-	drawstart = -game->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (drawstart < 0)
-		drawstart = 0;
-	drawend = game->lineheight / 2 + SCREEN_HEIGHT / 2;
-	if (drawend >= SCREEN_HEIGHT)
-		drawend = SCREEN_HEIGHT - 1;
-	// Dessiner le plafond
-	y = 0;
-	while (y < drawstart)
-	{
-		putpixel(x, y, game->color_c, game);
-		y++;
-	}
-	// Préparer la texture du mur
-	get_texx(game, player);
-	step = 1.0 * game->texture->icon_h / game->lineheight;
-	texpos = (drawstart - SCREEN_HEIGHT / 2 + game->lineheight / 2) * step;
-	// Dessiner le mur
-	y = drawstart;
-	while (y < drawend)
-	{
-		game->texy = (int)texpos & (game->texture->icon_h - 1);
-		putpixel(x, y, choose_color(game, game->texx, game->texy), game);
-		texpos += step;
-		y++;
-	}
-	// Dessiner le sol
-	y = drawend;
-	while (y < SCREEN_HEIGHT)
-	{
-		putpixel(x, y, game->color_f, game);
-		y++;
-	}
+	game->drawstart = -game->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (game->drawstart < 0)
+		game->drawstart = 0;
+	game->drawend = game->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (game->drawend >= SCREEN_HEIGHT)
+		game->drawend = SCREEN_HEIGHT - 1;
+	draw_picture(game, player, x);
 }
 
 void	get_position(t_ray *player)

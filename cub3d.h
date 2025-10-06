@@ -125,6 +125,10 @@ typedef struct s_data
 	int			color_f;
 	int			side;
 	int			lineheight;
+	double		step;
+	double		texpos;
+	int			drawstart;
+	int			drawend;
 	t_texture	*texture;
 	t_texture	*image;
 	t_texture	*no_text;

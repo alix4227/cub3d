@@ -54,6 +54,19 @@ void	check_arg(int ac, char *file)
 	}
 }
 
+void	mlx_and_map_init(t_data *game, t_ray *player, char **av)
+{
+	map_init(game, av[1]); //je recupere la map avec le pointeur game->pars
+	if (!parsing(game)) //je parse la map
+		ft_close1(game);
+	initiate_mlx(game, av[1]);
+	init_player_variables(player, game);
+	renderframe(game, player);
+	mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);
+	mlx_hook(game->mlx_win, KEY_EXIT, 1L << 0, &ft_close, game);
+	mlx_loop(game->mlx);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*game;
@@ -69,7 +82,7 @@ int	main(int ac, char **av)
 	game->ray = player;
 	game->nbr = number_of_lines(av[1]);
 	initiate(game);//j'initialise mes variables
-	if (!parsing_info(game, av[1])) //je verifie que dans le fichier .cub les informations au dessus de la map sont correctes
+	if (!parsing_info(game, av[1])) //je verifie que dans le fichier .cub les informations au dessus de la map sont correctes 
 	{
 		printf("error\n");
 		ft_close1(game);
@@ -79,13 +92,5 @@ int	main(int ac, char **av)
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
 		return (0);
-	map_init(game, av[1]); //je recupere la map avec le pointeur game->pars
-	if (parsing(game) == 0) //je parse la map
-		ft_close1(game);
-	initiate_mlx(game, av[1]);
-	init_player_variables(player, game);
-	renderframe(game, player);
-	mlx_hook(game->mlx_win, KEY_PRESS, 1L << 0, &key_hook, game);
-	mlx_hook(game->mlx_win, KEY_EXIT, 1L << 0, &ft_close, game);
-	mlx_loop(game->mlx);
+	mlx_and_map_init(game, player, av);
 }
