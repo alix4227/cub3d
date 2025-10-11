@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
-#include "mlx.h"
 
 int	check_flood_fill(t_data *game, int x, int y)
 {
@@ -23,7 +22,7 @@ void	flood_fill(t_data *game, int x, int y)
 	if (y < 0 || x < 0 || !game->pars_temp[y] || x >= (int)ft_strlen(game->pars_temp[y]))
 	{
 		game->path_error = 1;
-		printf("path");
+		write(2, "Error\nMap not closed: player can reach outside\n", 48);
 		return ;
 	}
 	if (game->pars_temp[y][x] == '1' || game->pars_temp[y][x] == 'X')

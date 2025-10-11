@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:01:51 by blefebvr          #+#    #+#             */
-/*   Updated: 2025/10/03 13:47:21 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 void	putpixel(int x, int y, int color, t_data *game)
 {

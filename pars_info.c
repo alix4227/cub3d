@@ -63,6 +63,10 @@ int	is_map_line(char *line)
 	return (0);
 }
 
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
 int	parsing_info(t_data *game, char *file)
 {
 	char	*line;

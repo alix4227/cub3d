@@ -1,0 +1,23 @@
+# Compiled files
+*.o
+*.a
+cub3D
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Debug files
+*.dSYM/
+vgcore.*
+
+# IDE files
+.vscode/
+.idea/
+
+# Build artifacts
+minilibx-linux/obj/
+minilibx-linux/test/mlx-test
+minilibx-linux/*.a

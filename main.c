@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "cub3d.h"
+#include "mlx.h"
 
 char	*ft_strstr(char *str, char *to_find)
 {
@@ -44,12 +44,12 @@ void	check_arg(int ac, char *file)
 {
 	if (ac != 2)
 	{
-		write(1, "Invalid number of arguments\n", 28);
+		write(2, "Error\nUsage: ./cub3D <map.cub>\n", 32);
 		exit (-1);
 	}
 	if (!ft_strstr(file, ".cub"))
 	{
-		write(1, "Invalid File\n", 13);
+		write(2, "Error\nInvalid file extension (must be .cub)\n", 45);
 		exit (-1);
 	}
 }
@@ -84,7 +84,7 @@ int	main(int ac, char **av)
 	initiate(game);//j'initialise mes variables
 	if (!parsing_info(game, av[1])) //je verifie que dans le fichier .cub les informations au dessus de la map sont correctes 
 	{
-		printf("error\n");
+		write(2, "Error\nInvalid configuration file format\n", 41);
 		ft_close1(game);
 		return (0);
 	}

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
-#include "mlx.h"
 
 int	check_items(t_data *game)
 {
@@ -28,7 +27,9 @@ int	check_items(t_data *game)
 				&& game->pars[y][x] != '0' && game->pars[y][x] != '1'
 				&& !is_whitespace(game->pars[y][x]))
 			{
-				write(1, "Error: wrong item\n", 18);
+				write(2, "Error\nInvalid character in map: '", 34);
+				write(2, &game->pars[y][x], 1);
+				write(2, "'\n", 2);
 				return (0);
 			}
 			x++;
@@ -64,7 +65,7 @@ int	check_numbers_items(t_data *game)
 	check_numbers_items2(game, x, y);
 	if (game->player == 0)
 	{
-		write(1, "Error: no player\n", 17);
+		write(2, "Error\nNo player starting position (N/S/E/W) found in map\n", 58);
 		return (0);
 	}
 	return (1);
@@ -92,7 +93,7 @@ int	check_doublons(t_data *game)
 	if (game->count > 1 || game->count2 > 1)
 	{
 		if (game->count > 1)
-			write(2, "Error: Too much start\n", 22);
+			write(2, "Error\nMultiple player starting positions found in map\n", 55);
 		return (0);
 	}
 	return (1);

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 size_t	ft_strlen(const char *str)
 {

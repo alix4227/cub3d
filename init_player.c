@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 void	init_player_variables(t_ray *player, t_data *game)
 {

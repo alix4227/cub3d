@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 char	*get_image_path(const char *str)
 {

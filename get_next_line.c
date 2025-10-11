@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 char	*fill_line(char *buffer, char *left_char, int fd)
 {

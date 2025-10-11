@@ -1,0 +1,14 @@
+NO ./Textures/north.xpm
+SO ./Textures/cyan_concrete.xpm
+WE ./Textures/brick_wall_red_64.xpm
+EA ./Textures/brick_wall_blue_64.xpm
+
+F 220,100,0
+C 225,30,0
+
+1111111
+1000001
+100X001
+100N001
+1000001
+1111111

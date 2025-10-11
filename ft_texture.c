@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_texture.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 20:50:07 by parracha          #+#    #+#             */
-/*   Updated: 2025/10/03 13:55:02 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 void	get_wall_texture(t_data *game, t_ray *player)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_cardinal_lines.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:21:55 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/10/06 15:31:40 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 void	init_ids2(char **id)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:18:52 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/10/06 14:18:59 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 size_t	len2(const char *str)
 {

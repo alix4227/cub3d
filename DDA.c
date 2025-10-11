@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 #include "mlx.h"
+
 // // ========== Étape 1: initialisation des directions ==========
 
 // // position du joueur (coordonnées réelles, pas de grille)

@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
-#include "mlx.h"
 
 int	check_map(t_data *game)
 {
 	if (!game || !game->pars || !game->pars[0])
 	{
-		write(2, "Error : map non chargée\n", 26);
+		write(2, "Error\nMap not loaded or empty\n", 31);
 		return (0);
 	}
 	if (check_walls_1(game) == 0)

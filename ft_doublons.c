@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_doublons.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:48:12 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/10/06 15:35:31 by acrusoe          ###   ########.fr       */
+/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 void	ft_count_id(t_data *game, char *str)
 {

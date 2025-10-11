@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
-#include "mlx.h"
 
 int	check_walls_1(t_data *game)
 {
@@ -26,7 +25,8 @@ int	check_walls_1(t_data *game)
 			x++;
 		if (game->pars[y][x] != '1')
 		{
-			write(1, "Error: wrong wall\n", 18);
+			write(2, "Error\nMap not closed: left wall missing at line ", 49);
+			write(2, "\n", 1);
 			return (0);
 		}
 		y++;
@@ -48,7 +48,7 @@ int	check_walls_2(t_data *game)
 			x--;
 		if (x >= 0 && game->pars[y][x] != '1')
 		{
-			write(1, "Error: wrong wall\n", 18);
+			write(2, "Error\nMap not closed: right wall missing\n", 42);
 			return (0);
 		}
 		y++;
@@ -70,7 +70,7 @@ int	check_walls_3(t_data *game)
 			y++;
 		if (game->pars[y][x] != '1')
 		{
-			write(1, "Error: wrong wall\n", 18);
+			write(2, "Error\nMap not closed: top wall missing\n", 40);
 			return (0);
 		}
 		x++;
@@ -93,7 +93,7 @@ int	check_walls_4(t_data *game)
 			y--;
 		if (y >= 0 && game->pars[y][x] != '1')
 		{
-			write(1, "Error: wrong wall\n", 18);
+			write(2, "Error\nMap not closed: bottom wall missing\n", 43);
 			return (0);
 		}
 		x++;
