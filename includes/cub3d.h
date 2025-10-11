@@ -45,6 +45,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# include "mlx.h"
 
 typedef struct s_texture
 {
