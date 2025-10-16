@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 14:12:17 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/10/03 14:12:17 by acrusoe          ###   ########.fr       */
+/*   Created: 2025/10/17 01:16:18 by gekido            #+#    #+#             */
+/*   Updated: 2025/10/17 01:16:18 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "mlx.h"
 
 char	*ft_strstr(char *str, char *to_find)
 {
@@ -56,8 +55,8 @@ void	check_arg(int ac, char *file)
 
 void	mlx_and_map_init(t_data *game, t_ray *player, char **av)
 {
-	map_init(game, av[1]); //je recupere la map avec le pointeur game->pars
-	if (!parsing(game)) //je parse la map
+	map_init(game, av[1]);
+	if (!parsing(game))
 		ft_close1(game);
 	initiate_mlx(game, av[1]);
 	init_player_variables(player, game);
@@ -81,14 +80,14 @@ int	main(int ac, char **av)
 		return (0);
 	game->ray = player;
 	game->nbr = number_of_lines(av[1]);
-	initiate(game);//j'initialise mes variables
-	if (!parsing_info(game, av[1])) //je verifie que dans le fichier .cub les informations au dessus de la map sont correctes 
+	initiate(game);
+	if (!parsing_info(game, av[1]))
 	{
 		write(2, "Error\nInvalid configuration file format\n", 41);
 		ft_close1(game);
-		return (0);
+		return (1);
 	}
-	ft_color(game, av[1]);// je recupere la couleur du plafond et du sol
+	ft_color(game, av[1]);
 	game->pars = malloc(((game->nbr) + 1) * sizeof(char *));
 	if (!game->pars)
 		return (0);

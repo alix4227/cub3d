@@ -6,7 +6,7 @@
 #    By: gekido <gekido@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/12 01:42:13 by gekido            #+#    #+#              #
-#    Updated: 2025/10/12 01:43:27 by gekido           ###   ########.fr        #
+#    Updated: 2025/10/17 01:04:27 by gekido           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,33 +21,33 @@ NAME		= cub3D
 
 # source files
 SRCS	= srcs/main.c \
-		srcs/parsing/parse_file.c \
-		srcs/parsing/parse_textures.c \
-		srcs/parsing/find_color_line.c \
-		srcs/parsing/ft_color.c \
-		srcs/parsing/parse_map.c \
-		srcs/parsing/check_walls.c \
-		srcs/parsing/check_walls_utils.c \
-		srcs/parsing/check_items.c \
-		srcs/parsing/check_map_and_path.c \
-		srcs/parsing/flood_fill.c \
-		srcs/parsing/check_cardinal_lines.c \
-		srcs/parsing/check_color_lines.c \
-		srcs/parsing/ft_doublons.c \
-		srcs/raycasting/DDA.c \
-		srcs/rendering/ft_render.c \
-		srcs/textures/ft_texture.c \
-		srcs/game/init_game.c \
-		srcs/game/init_player.c \
-		srcs/game/init_mlx.c \
-		srcs/game/movements.c \
-		srcs/game/rotations.c \
-		srcs/game/hooks.c \
-		srcs/utils/get_next_line.c \
-		srcs/utils/get_next_line_utils.c \
-		srcs/cleanup/cleaning.c 
-
-# object files
+		srcs/parsing/check_file/parse_file.c \
+		srcs/parsing/check_file/ft_doublons.c \
+		srcs/parsing/check_textures/parse_textures.c \
+		srcs/parsing/check_textures/check_cardinal_lines.c \
+		srcs/parsing/check_colors/find_color_line.c \
+		srcs/parsing/check_colors/ft_color.c \
+		srcs/parsing/check_colors/check_color_lines.c \
+		srcs/parsing/check_map/parse_map.c \
+		srcs/parsing/check_map/check_walls.c \
+		srcs/parsing/check_map/check_walls_utils.c \
+		srcs/parsing/check_map/check_items.c \
+	srcs/parsing/check_map/check_map_and_path.c \
+	srcs/parsing/check_map/flood_fill.c \
+	srcs/raycasting/DDA.c \
+	srcs/raycasting/DDA_helpers.c \
+	srcs/raycasting/DDA_render.c \
+	srcs/rendering/ft_render.c \
+	srcs/textures/ft_texture.c \
+	srcs/game/init/init_game.c \
+	srcs/game/init/init_player.c \
+	srcs/game/init/init_mlx.c \
+	srcs/game/player/movements.c \
+	srcs/game/player/rotations.c \
+	srcs/game/events/hooks.c \
+	srcs/utils/get_next_line.c \
+	srcs/utils/get_next_line_utils.c \
+	srcs/cleanup/cleaning.c
 OBJS	= ${SRCS:.c=.o}
 
 # mlx library

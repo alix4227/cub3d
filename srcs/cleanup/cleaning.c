@@ -74,5 +74,5 @@ int	ft_close1(t_data *game)
 	ft_free_pars(game);
 	free(game->ray);
 	free(game);
-	exit (0);
+	exit (1);
 }
