@@ -37,14 +37,43 @@ void	initiate(t_data *game)
 	game->pars = NULL;
 }
 
-void	map_init(t_data *game, char *file)
+int	is_empty_line(char *line)
 {
-	int		i;
-	char	*line;
-	int		map;
+	int	i;
 
-	map = open(file, O_RDONLY);
 	i = 0;
+	if (!line)
+		return (1);
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	handle_empty_line_error(int map, char *line)
+{
+	char	*temp;
+
+	write(2, "Error\nEmpty line in map\n", 25);
+	free(line);
+	temp = get_next_line(map);
+	while (temp)
+	{
+		free(temp);
+		temp = get_next_line(map);
+	}
+	close(map);
+	get_next_line(-1);
+	return (0);
+}
+
+static char	*skip_to_map(int map)
+{
+	char	*line;
+
 	line = get_next_line(map);
 	while (line != NULL)
 	{
@@ -53,54 +82,30 @@ void	map_init(t_data *game, char *file)
 		free(line);
 		line = get_next_line(map);
 	}
+	return (line);
+}
+
+int	map_init(t_data *game, char *file)
+{
+	int		i;
+	char	*line;
+	int		map;
+
+	map = open(file, O_RDONLY);
+	i = 0;
+	line = skip_to_map(map);
 	while (line != NULL)
 	{
+		if (i > 0 && is_empty_line(line))
+		{
+			game->pars[i] = NULL;
+			return (handle_empty_line_error(map, line));
+		}
 		game->pars[i] = line;
 		i++;
 		line = get_next_line(map);
 	}
 	game->pars[i] = NULL;
 	close(map);
-}
-
-int	init_addr(t_data *game)
-{
-	game->no_text->addr = mlx_get_data_addr(game->no_text->img,
-			&game->no_text->bits_per_pixel, &game->no_text->line_length,
-			&game->no_text->endian);
-	game->so_text->addr = mlx_get_data_addr(game->so_text->img,
-			&game->so_text->bits_per_pixel, &game->so_text->line_length,
-			&game->so_text->endian);
-	game->ea_text->addr = mlx_get_data_addr(game->ea_text->img,
-			&game->ea_text->bits_per_pixel, &game->ea_text->line_length,
-			&game->ea_text->endian);
-	game->we_text->addr = mlx_get_data_addr(game->we_text->img,
-			&game->we_text->bits_per_pixel, &game->we_text->line_length,
-			&game->we_text->endian);
-	if (!game->no_text->addr || !game->so_text->addr || !game->ea_text->addr
-		|| !game->we_text->addr)
-		return (0);
-	return (1);
-}
-
-int	init_image(t_data *game, char *file)
-{
-	game->no_text = malloc(sizeof(t_texture));
-	game->so_text = malloc(sizeof(t_texture));
-	game->ea_text = malloc(sizeof(t_texture));
-	game->we_text = malloc(sizeof(t_texture));
-	if (!game->no_text || !game->so_text || !game->ea_text || !game->we_text)
-		return (0);
-	get_image(game, file);
-	game->no_text->img = mlx_xpm_file_to_image(game->mlx, game->no_text->path,
-			&game->no_text->icon_w, &game->no_text->icon_h);
-	game->so_text->img = mlx_xpm_file_to_image(game->mlx, game->so_text->path,
-			&game->so_text->icon_w, &game->so_text->icon_h);
-	game->we_text->img = mlx_xpm_file_to_image(game->mlx, game->we_text->path,
-			&game->we_text->icon_w, &game->we_text->icon_h);
-	game->ea_text->img = mlx_xpm_file_to_image(game->mlx, game->ea_text->path,
-			&game->ea_text->icon_w, &game->ea_text->icon_h);
-	if (!init_addr(game))
-		return (0);
 	return (1);
 }

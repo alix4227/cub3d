@@ -6,7 +6,7 @@
 #    By: gekido <gekido@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/12 01:42:13 by gekido            #+#    #+#              #
-#    Updated: 2025/10/17 01:04:27 by gekido           ###   ########.fr        #
+#    Updated: 2025/10/18 21:10:03 by gekido           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,13 @@ SRCS	= srcs/main.c \
 	srcs/game/init/init_game.c \
 	srcs/game/init/init_player.c \
 	srcs/game/init/init_mlx.c \
+	srcs/game/init/init_textures.c \
 	srcs/game/player/movements.c \
 	srcs/game/player/rotations.c \
 	srcs/game/events/hooks.c \
 	srcs/utils/get_next_line.c \
 	srcs/utils/get_next_line_utils.c \
+	srcs/utils/ft_memset.c \
 	srcs/cleanup/cleaning.c
 OBJS	= ${SRCS:.c=.o}
 

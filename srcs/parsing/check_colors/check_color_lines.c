@@ -6,7 +6,7 @@
 /*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:25:31 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
+/*   Updated: 2025/10/18 16:27:44 by gekido           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	get_nb(const char *str, char *s, int *nb, int i)
 			break ;
 		i++;
 	}
+	if (k != 3)
+		return (0);
 	return (1);
 }
 

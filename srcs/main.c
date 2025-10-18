@@ -55,7 +55,8 @@ void	check_arg(int ac, char *file)
 
 void	mlx_and_map_init(t_data *game, t_ray *player, char **av)
 {
-	map_init(game, av[1]);
+	if (!map_init(game, av[1]))
+		ft_close1(game);
 	if (!parsing(game))
 		ft_close1(game);
 	initiate_mlx(game, av[1]);
@@ -66,21 +67,28 @@ void	mlx_and_map_init(t_data *game, t_ray *player, char **av)
 	mlx_loop(game->mlx);
 }
 
+void	init_structs(t_data **game, t_ray **player, char **av)
+{
+	*game = malloc(sizeof(t_data));
+	if (!*game)
+		exit(1);
+	ft_memset(*game, 0, sizeof(t_data));
+	*player = malloc(sizeof(t_ray));
+	if (!*player)
+		exit(1);
+	ft_memset(*player, 0, sizeof(t_ray));
+	(*game)->ray = *player;
+	(*game)->nbr = number_of_lines(av[1]);
+	initiate(*game);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	*game;
 	t_ray	*player;
 
 	check_arg(ac, av[1]);
-	game = malloc(sizeof(t_data));
-	if (!game)
-		return (0);
-	player = malloc(sizeof(t_ray));
-	if (!player)
-		return (0);
-	game->ray = player;
-	game->nbr = number_of_lines(av[1]);
-	initiate(game);
+	init_structs(&game, &player, av);
 	if (!parsing_info(game, av[1]))
 	{
 		write(2, "Error\nInvalid configuration file format\n", 41);
