@@ -98,6 +98,22 @@ test_map "test_maps/valid/spawn_east.cub" "valid" "Spawn orientation EAST"
 test_map "test_maps/valid/spawn_west.cub" "valid" "Spawn orientation WEST"
 test_map "test_maps/valid/big_map.cub" "valid" "Grande map valide"
 test_map "test_maps/valid/tiny_map.cub" "valid" "Petite map valide"
+test_map "test_maps/valid/map_not_closed_top.cub" "valid" "Map avec espace non accessible en haut"
+test_map "test_maps/valid/map_not_closed_bottom.cub" "valid" "Map avec espace non accessible en bas"
+test_map "test_maps/valid/empty_line_in_map.cub" "valid" "Map avec lignes vides avant la map"
+test_map "test_maps/valid/no_newline_before_map.cub" "valid" "Map avec newline avant la map"
+
+# ============================================
+# TESTS DE BIG MAPS TRICKY
+# ============================================
+echo -e "\n${YELLOW}=== TESTS DE BIG MAPS AVEC CAS TRICKY ===${NC}"
+
+test_map "test_maps/valid/big_map_irregular.cub" "valid" "Big map avec lignes irrégulières"
+test_map "test_maps/valid/big_map_wide.cub" "valid" "Big map très large (50 colonnes)"
+test_map "test_maps/valid/big_map_tall.cub" "valid" "Big map très haute (40 lignes)"
+test_map "test_maps/valid/big_map_complex.cub" "valid" "Big map complexe avec salles internes"
+test_map "test_maps/valid/Big_map.cub" "valid" "Big map avec plusieurs îles et espaces"
+test_map "test_maps/valid/map_with_spaces_like_subject.cub" "valid" "Map avec espaces comme dans le sujet"
 
 # ============================================
 # TESTS DE CONFIGURATION INVALIDE
@@ -130,14 +146,22 @@ test_map "test_maps/invalid/no_player.cub" "invalid" "Pas de joueur"
 test_map "test_maps/invalid/multiple_players.cub" "invalid" "Plusieurs joueurs"
 test_map "test_maps/invalid/map_not_closed_left.cub" "invalid" "Map ouverte à gauche"
 test_map "test_maps/invalid/map_not_closed_right.cub" "invalid" "Map ouverte à droite"
-test_map "test_maps/invalid/map_not_closed_top.cub" "invalid" "Map ouverte en haut"
-test_map "test_maps/invalid/map_not_closed_bottom.cub" "invalid" "Map ouverte en bas"
 test_map "test_maps/invalid/invalid_character.cub" "invalid" "Caractère invalide dans map"
 test_map "test_maps/invalid/empty_line_in_middle_of_map.cub" "invalid" "Ligne vide au milieu de la map"
 test_map "test_maps/invalid/no_map.cub" "invalid" "Pas de map"
 test_map "test_maps/invalid/map_weird_1.cub" "invalid" "Map bizarre 1 (lignes inégales + espace)"
 test_map "test_maps/invalid/map_weird_2.cub" "invalid" "Map bizarre 2 (commence par espace)"
-test_map "test_maps/invalid/Big_map.cub" "invalid" "Grande map complexe avec espaces"
+
+# ============================================
+# TESTS DE BIG MAPS INVALIDES
+# ============================================
+echo -e "\n${YELLOW}=== TESTS DE BIG MAPS INVALIDES ===${NC}"
+
+test_map "test_maps/invalid/big_map_empty_line.cub" "invalid" "Big map avec ligne vide au milieu"
+test_map "test_maps/invalid/big_map_hole_middle.cub" "invalid" "Big map avec trou au milieu (espace)"
+test_map "test_maps/invalid/big_map_space_border.cub" "invalid" "Big map avec espace au bord gauche"
+test_map "test_maps/invalid/big_map_open_bottom.cub" "invalid" "Big map ouverte en bas (ligne 0 après mur)"
+test_map "test_maps/invalid/big_map_hole_right.cub" "invalid" "Big map avec trou au bord droit"
 
 # Test sans arguments
 echo -e "\n${BLUE}Test $((TOTAL + 1)): Programme sans arguments${NC}"

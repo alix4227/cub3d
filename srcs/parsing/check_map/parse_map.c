@@ -15,12 +15,25 @@ int	len(t_data *game)
 {
 	int	y;
 	int	x;
+	int	max_len;
+	int	current_len;
 
 	y = 0;
-	x = 0;
-	while (game->pars[y][x] != '\n')
-		x++;
-	return (x);
+	max_len = 0;
+	while (game->pars[y])
+	{
+		x = 0;
+		current_len = 0;
+		while (game->pars[y][x] && game->pars[y][x] != '\n')
+		{
+			current_len++;
+			x++;
+		}
+		if (current_len > max_len)
+			max_len = current_len;
+		y++;
+	}
+	return (max_len);
 }
 
 int	number_of_lines(char *file)

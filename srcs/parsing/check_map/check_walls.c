@@ -21,15 +21,12 @@ int	check_walls_1(t_data *game)
 	while (game->pars[y])
 	{
 		x = 0;
-		if (is_whitespace(game->pars[y][x]))
+		while (game->pars[y][x] && is_whitespace(game->pars[y][x]))
+			x++;
+		if (game->pars[y][x] && game->pars[y][x] != '1' 
+			&& game->pars[y][x] != '\n')
 		{
-			write(2, "Error\nMap not closed: space at map border\n", 43);
-			return (0);
-		}
-		if (game->pars[y][x] != '1')
-		{
-			write(2, "Error\nMap not closed: left wall missing at line ", 49);
-			write(2, "\n", 1);
+			write(2, "Error\nMap not closed: left wall missing\n", 41);
 			return (0);
 		}
 		y++;

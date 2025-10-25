@@ -52,14 +52,21 @@ int	check_path(t_data *game, int x, int y)
 			break ;
 		y++;
 	}
+	cpy_pars(game);
 	if (check_flood_fill(game, x, y) == 1)
+	{
+		ft_free(game);
 		return (0);
+	}
+	ft_free(game);
 	return (1);
 }
 
 int	parsing(t_data *game)
 {
 	if (check_map(game) == 0)
+		return (0);
+	if (check_path(game, 0, 0) == 0)
 		return (0);
 	return (1);
 }
