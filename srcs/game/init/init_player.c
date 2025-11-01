@@ -29,8 +29,8 @@ void	init_player_variables(t_ray *player, t_data *game)
 			{
 				player->posx = x + 0.5;
 				player->posy = y + 0.5;
-				player->dirx = (dir == 'E') - (dir == 'W');
-				player->diry = (dir == 'S') - (dir == 'N');
+				player->dirx = (dir == 'W') - (dir == 'E');
+				player->diry = (dir == 'N') - (dir == 'S');
 				player->planex = -player->diry * 0.66;
 				player->planey = player->dirx * 0.66;
 				return ;

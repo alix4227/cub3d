@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gekido <gekido@student.42.fr>              +#+  +:+       +#+         #
+#    By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/12 01:42:13 by gekido            #+#    #+#              #
-#    Updated: 2025/10/25 13:19:19 by gekido           ###   ########.fr        #
+#    Updated: 2025/10/29 20:16:36 by acrusoe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ OBJS	= ${SRCS:.c=.o}
 
 # mlx library
 MLX_NAME	= -lmlx_Linux
-MLX_PATH	= ./minilibx-linux
+MLX_PATH	= ./mlx-linux
 MLX_FLAGS   = -lXext -lX11 -lmlx -lm -lz
 MLX			= -L${MLX_PATH} ${MLX_NAME} ${MLX_FLAGS}
 

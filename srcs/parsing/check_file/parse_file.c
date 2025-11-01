@@ -76,6 +76,7 @@ int	parsing_info(t_data *game, char *file)
 		if (!check_line(game, line))
 		{
 			free(line);
+			close(map);
 			get_next_line(-1);
 			return (0);
 		}

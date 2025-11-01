@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_walls_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gekido <gekido@student.42.fr>              +#+  +:+       +#+        */
+/*   By: acrusoe <acrusoe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 14:18:52 by acrusoe           #+#    #+#             */
-/*   Updated: 2025/10/12 00:51:55 by gekido           ###   ########.fr       */
+/*   Updated: 2025/11/01 10:48:35 by acrusoe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,20 @@ size_t	len2(const char *str)
 int	len_y(t_data *game, int x)
 {
 	int	y;
+	int	last_non_empty;
 
 	y = 0;
-	while (game->pars[y] && game->pars[y][x] != '\n')
+	last_non_empty = -1;
+	while (game->pars[y])
+	{
+		if (x < (int)ft_strlen(game->pars[y]))
+		{
+			if (!is_whitespace(game->pars[y][x]))
+				last_non_empty = y;
+		}
 		y++;
-	return (y);
+	}
+	return (last_non_empty + 1);
 }
 
 int	is_whitespace(char c)
