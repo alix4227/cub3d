@@ -151,6 +151,7 @@ int				check_walls_4(t_data *game);
 int				check_walls_3(t_data *game);
 int				check_walls_2(t_data *game);
 int				check_walls_1(t_data *game);
+int				column_has_content(t_data *game, int x);
 int				len(t_data *game);
 int				len_y(t_data *game, int x);
 size_t			len2(const char *str);
